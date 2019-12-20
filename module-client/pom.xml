@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>module-client</name>
     <description>微服务服务A</description>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>

@@ -14,6 +14,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>frameMettre</name>
     <description>微服务架构</description>
+    <packaging>pom</packaging>
 
     <modules>
         <module>module-gateway2</module>
@@ -62,12 +63,12 @@
             <version>${springfox-swagger2.version}</version>
         </dependency>
 
-        <!-- Hutool工具包 一些utils 字符串判空等-->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>4.1.12</version>
-        </dependency>
+        <!--&lt;!&ndash; Hutool工具包 一些utils 字符串判空等&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>cn.hutool</groupId>-->
+            <!--<artifactId>hutool-all</artifactId>-->
+            <!--<version>4.1.12</version>-->
+        <!--</dependency>-->
 
         <!-- Lombok    消除set/get方法  bean类上加@Date-->
         <dependency>
@@ -86,6 +87,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.44</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>1.3.5</version>
         </dependency>
 
         <!-- Hutool工具包 一些utils 字符串判空等-->
