@@ -63,13 +63,6 @@
             <version>${springfox-swagger2.version}</version>
         </dependency>
 
-        <!--&lt;!&ndash; Hutool工具包 一些utils 字符串判空等&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>cn.hutool</groupId>-->
-            <!--<artifactId>hutool-all</artifactId>-->
-            <!--<version>4.1.12</version>-->
-        <!--</dependency>-->
-
         <!-- Lombok    消除set/get方法  bean类上加@Date-->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -119,6 +112,26 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-redis</artifactId>
             <version>1.4.7.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
+        <!--jjwt-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+
+        <!--公共类-->
+        <dependency>
+            <groupId>com.mettre</groupId>
+            <artifactId>module-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
     </dependencies>

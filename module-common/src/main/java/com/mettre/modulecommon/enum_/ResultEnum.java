@@ -1,9 +1,7 @@
-package com.mettre.modulecommon.enums;
+package com.mettre.modulecommon.enum_;
 
-/**
- * Created by zhuwj on 2017/11/12.
- */
-public enum ErrorCodeEnum {
+public enum ResultEnum {
+
     /**
      * 请求成功
      */
@@ -65,26 +63,11 @@ public enum ErrorCodeEnum {
     MESSAGE_ERROR(10012, "消息处理异常");
 
     private Integer code;
+    private String msg;
 
-    private String  msg;
 
-    ErrorCodeEnum(Integer code , String msg){
-        this.code= code;
-        this.msg=msg;
-    }
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
+    ResultEnum(Integer code, String msg) {
         this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
         this.msg = msg;
     }
 
@@ -94,11 +77,23 @@ public enum ErrorCodeEnum {
      * @return
      */
     public static String getMsg(Integer code){
-        for(ErrorCodeEnum apiCodeEnum: ErrorCodeEnum.values()){
+        for(ResultEnum apiCodeEnum: ResultEnum.values()){
             if(code.equals(apiCodeEnum.getCode())){
                 return apiCodeEnum.getMsg();
             }
         }
         return BUSINESS_FAIL.getMsg();
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

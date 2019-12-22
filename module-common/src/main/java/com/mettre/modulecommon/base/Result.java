@@ -57,6 +57,21 @@ public class Result<T> implements Serializable {
         this.timestamp = timestamp;
     }
 
+
+    public static <T> Result<T> loginInvalid() {
+        Result<T> msg = new Result<>();
+        msg.msg = "登录失效";
+        msg.code = 401;
+        return msg.putTimeStamp();
+    }
+
+    public static <T> Result<T> NotLoginEd() {
+        Result<T> msg = new Result<>();
+        msg.msg = "未登录";
+        msg.code = 401;
+        return msg.putTimeStamp();
+    }
+
     /**
      * 系统定义的错误返回结果
      *
