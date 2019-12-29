@@ -13,6 +13,7 @@ public class CustomerException extends RuntimeException {
         this.code = errorCodeEnum.getCode();
     }
 
+
     public CustomerException(String message) {
         super(message);
         this.code = CommonConstant.ERROR;

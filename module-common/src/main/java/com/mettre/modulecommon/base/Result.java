@@ -1,6 +1,6 @@
 package com.mettre.modulecommon.base;
 
-import com.mettre.modulecommon.enums.ErrorCodeEnum;
+import com.mettre.modulecommon.enum_.ResultEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -79,7 +79,7 @@ public class Result<T> implements Serializable {
      * @return
      */
     public static <T> Result<T> error() {
-        return error(ErrorCodeEnum.BUSINESS_FAIL.getCode(), ErrorCodeEnum.BUSINESS_FAIL.getMsg());
+        return error(ResultEnum.BUSINESS_FAIL.getCode(), ResultEnum.BUSINESS_FAIL.getMsg());
     }
 
     /**
@@ -90,7 +90,7 @@ public class Result<T> implements Serializable {
      * @return
      */
     public static <T> Result<T> error(String message) {
-        return error(ErrorCodeEnum.BUSINESS_FAIL.getCode(), message);
+        return error(ResultEnum.BUSINESS_FAIL.getCode(), message);
     }
 
     /**
@@ -99,7 +99,7 @@ public class Result<T> implements Serializable {
      * @return
      */
     public static <T> Result<T> error(Integer code) {
-        return error(code, ErrorCodeEnum.getMsg(code));
+        return error(code, ResultEnum.getMsg(code));
     }
 
     /**
@@ -128,7 +128,7 @@ public class Result<T> implements Serializable {
         return new Result<T>()
                 .result(result)
                 .putTimeStamp()
-                .code(ErrorCodeEnum.BUSINESS_FAIL.getCode()).msg(ErrorCodeEnum.BUSINESS_FAIL.getMsg());
+                .code(ResultEnum.BUSINESS_FAIL.getCode()).msg(ResultEnum.BUSINESS_FAIL.getMsg());
     }
 
     /**
@@ -142,7 +142,8 @@ public class Result<T> implements Serializable {
         return new Result<T>()
                 .result(result)
                 .putTimeStamp()
-                .code(ErrorCodeEnum.RESULT_SUCCESS.getCode()).msg(ErrorCodeEnum.RESULT_SUCCESS.getMsg());
+                .code(ResultEnum.RESULT_SUCCESS.getCode())
+                .msg(ResultEnum.RESULT_SUCCESS.getMsg());
     }
 
     private Result<T> putTimeStamp() {

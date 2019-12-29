@@ -36,7 +36,7 @@ public class JwtFilter extends GenericFilterBean {
         final HttpServletRequest request = (HttpServletRequest) req;
 
         Result<Object> result = new Result<>();
-        SecretKey key = JwtUtils.generalKey();
+//        SecretKey key = JwtUtils.generalKey();
         //客户端将token封装在请求头中，格式为（Bearer后加空格）：Authorization：Bearer +token
         final String authHeader = request.getHeader(CommonConstant.AUTHORITIES);
         if (authHeader == null || !authHeader.startsWith(CommonConstant.BEARER)) {
@@ -47,7 +47,7 @@ public class JwtFilter extends GenericFilterBean {
                 //去除Bearer 后部分
                 final String jwt = authHeader.substring(7);
                 //解密token，拿到里面的对象claims
-                final Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(jwt).getBody();
+                final Claims claims = Jwts.parser().setSigningKey(CommonConstant.JWT_TOKEN).parseClaimsJws(jwt).getBody();
                 //将对象传递给下一个请求
                 AccessToken accessToken = new AccessToken(claims.getSubject());
                 SecurityContextStore.setContext(accessToken);

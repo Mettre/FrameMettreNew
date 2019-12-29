@@ -8,7 +8,7 @@ package com.mettre.modulecommon.constant;
  */
 public interface CommonConstant {
 
-    String JWT_TOKEN = "WeChatSecretkey";
+    String JWT_TOKEN = "framemettre";
 
     String AUTHORITIES = "authorities";
 

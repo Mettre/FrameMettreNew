@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mettre.moduleclient.mapper.UserMapper">
-    <resultMap id="BaseResultMap" type="com.mettre.moduleclient.pojo.User">
+    <resultMap id="BaseResultMap" type="com.mettre.modulecommon.pojo.User">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
@@ -9,8 +9,22 @@
         <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP"/>
         <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <resultMap id="BaseResultMapExceptPassword" type="com.mettre.modulecommon.pojo.User">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP"/>
+        <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
     <sql id="Base_Column_List">
     id, name, password, create_date, modify_date, nickname
+  </sql>
+
+    <sql id="Base_Column_List_except_password">
+    id, name, create_date, modify_date, nickname
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -18,11 +32,32 @@
         from f_user
         where id = #{id,jdbcType=INTEGER}
     </select>
+
+
+    <!--根据手机号搜索用户-->
+    <select id="selectByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from f_user
+        where name = #{name,jdbcType=VARCHAR}
+
+        where match (name)
+        AGAINST ('一路 一带' IN NATURAL LANGUAGE MODE);
+    </select>
+
+    <select id="searchByPhone" resultMap="BaseResultMapExceptPassword" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List_except_password"/>
+        from f_user
+        where name = #{phone,jdbcType=VARCHAR}
+    </select>
+
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from f_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.mettre.moduleclient.pojo.User">
+    <insert id="insert" parameterType="com.mettre.modulecommon.pojo.User">
     insert into f_user (id, name, password, 
       create_date, modify_date, nickname
       )
@@ -30,7 +65,7 @@
       #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{nickname,jdbcType=VARCHAR}
       )
   </insert>
-    <insert id="insertSelective" parameterType="com.mettre.moduleclient.pojo.User">
+    <insert id="insertSelective" parameterType="com.mettre.modulecommon.pojo.User">
         insert into f_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -73,7 +108,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.mettre.moduleclient.pojo.User">
+    <update id="updateByPrimaryKeySelective" parameterType="com.mettre.modulecommon.pojo.User">
         update f_user
         <set>
             <if test="name != null">
@@ -94,7 +129,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.mettre.moduleclient.pojo.User">
+    <update id="updateByPrimaryKey" parameterType="com.mettre.modulecommon.pojo.User">
     update f_user
     set name = #{name,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
