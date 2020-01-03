@@ -1,7 +1,9 @@
 package com.mettre.moduleclient.serviceImpl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.moduleclient.mapper.UserMapper;
 import com.mettre.moduleclient.pojo.UserRegisterVM;
+import com.mettre.moduleclient.pojo.selectByPhoneVM;
 import com.mettre.moduleclient.service.LoginService;
 import com.mettre.modulecommon.base.ReturnType;
 import com.mettre.modulecommon.enums.CustomerException;
@@ -58,6 +60,17 @@ public class LoginServiceImpl implements LoginService {
     public List<User> searchByPhone(String phoneStr) {
 
         return userMapper.searchByPhone(phoneStr);
+    }
+
+    @Override
+    public User selectByPhone(String name) {
+        return userMapper.selectByPhone(name);
+    }
+
+    @Override
+    public Page<User> searchByPhoneByPage(Page<User> page, selectByPhoneVM selectByPhoneVM) {
+        List<User> followList = (List<User>) userMapper.searchByPhoneByPage(page, selectByPhoneVM);
+        return page.setRecords(followList);
     }
 
 }

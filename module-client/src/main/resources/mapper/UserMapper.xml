@@ -40,18 +40,23 @@
         <include refid="Base_Column_List"/>
         from f_user
         where name = #{name,jdbcType=VARCHAR}
-
-        where match (name)
-        AGAINST ('一路 一带' IN NATURAL LANGUAGE MODE);
     </select>
 
+    <!--手机号模糊搜索-->
     <select id="searchByPhone" resultMap="BaseResultMapExceptPassword" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List_except_password"/>
         from f_user
-        where name = #{phone,jdbcType=VARCHAR}
+        where name like concat('%',#{phoneStr,jdbcType=VARCHAR},'%')
     </select>
 
+    <!--手机号模糊搜索-->
+    <select id="searchByPhoneByPage" resultMap="BaseResultMapExceptPassword" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List_except_password"/>
+        from f_user
+        where name like concat('%',#{selectByPhoneVM.phoneStr,jdbcType=VARCHAR},'%')
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from f_user

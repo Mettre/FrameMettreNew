@@ -10,7 +10,7 @@ import java.util.Date;
 @TableName("f_user")
 public class User {
 
-    private Integer id;
+    private int id;
 
     private String name;
 
@@ -26,8 +26,9 @@ public class User {
 
     }
 
+
     /**
-     * 激活区个人
+     * 激活区个人--抛出密码
      */
     public User(User user) {
         this.id = user.getId();
