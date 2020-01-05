@@ -1,0 +1,88 @@
+server:
+  port: 8763
+
+spring:
+  application:
+    name: module-client-b
+
+  datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/mettre_frame?useSSL=false&characterEncoding=utf8
+      username: root
+      password: admin
+      druid:
+        # 连接池的配置信息
+        # 初始化大小，最小，最大
+        initial-size: 5
+        min-idle: 5
+        maxActive: 20
+        # 配置获取连接等待超时的时间
+        maxWait: 60000
+        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        timeBetweenEvictionRunsMillis: 60000
+        # 配置一个连接在池中最小生存的时间，单位是毫秒
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+        filters: stat,wall,slf4j
+        # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+        connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+        # 配置DruidStatFilter
+        web-stat-filter:
+          enabled: true
+          url-pattern: "/*"
+          exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+        # 配置DruidStatViewServlet
+        stat-view-servlet:
+          url-pattern: "/druid/*"
+          # IP白名单(没有配置或者为空，则允许所有访问)
+          allow: 127.0.0.1,192.168.163.1
+          # IP黑名单 (存在共同时，deny优先于allow)
+          deny: 192.168.1.73
+          #  禁用HTML页面上的“Reset All”功能
+          reset-enable: false
+          # 登录名
+          login-username: admin
+          # 登录密码
+          login-password: 123456
+
+
+
+  # token过期时间（分钟）
+  tokenExpireTime: 4320
+  # 用户选择保存登录状态对应token过期时间（天）
+  saveLoginTime: 7
+  # 限制用户登陆错误次数（次）
+  loginTimeLimit: 10
+  # 错误超过次数后多少分钟后才能继续登录（分钟）
+  loginAfterTime: 10
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 10 #表示eureka client发送心跳给server端的频率，默认为30秒
+    health-check-url-path: /actuator/health #健康检查的地址（依赖spring-boot-starter-actuator）
+  client:
+    registry-fetch-interval-seconds: 10 #表示eureka client间隔多久去拉取服务注册信息，默认为30秒
+    service-url:
+      defaultZone: http://localhost:1111/eureka/
+
+
+# Swagger界面内容配置
+swagger:
+  title: Mettre框架网关
+  description: Mettre框架网关
+  version: 1.0.0
+  termsOfServiceUrl: http://blog.exrick.cn
+  contact:
+    name: module-client-b
+    url: http://blog.exrick.cn
+    email: 1052461392@qq.com

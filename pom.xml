@@ -18,6 +18,7 @@
 
     <modules>
         <module>module-gateway2</module>
+        <module>module-clientb</module>
     </modules>
 
     <properties>
@@ -134,6 +135,19 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+
+        <!--rpc-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>2.0.2.RELEASE</version>
+        </dependency>
+
+        <!-- 添加Gson依赖 -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

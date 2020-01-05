@@ -8,7 +8,6 @@ import com.mettre.moduleclient.service.LoginService;
 import com.mettre.modulecommon.base.Result;
 import com.mettre.modulecommon.enums.CustomerException;
 import com.mettre.modulecommon.jwt.SecurityContextStore;
-import com.mettre.modulecommon.pojo.BasePage;
 import com.mettre.modulecommon.pojo.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
