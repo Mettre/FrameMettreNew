@@ -53,6 +53,9 @@ spring:
           # 登录密码
           login-password: 123456
 
+  jackson:
+      date-format: yyyy-MM-dd HH:mm:ss
+      time-zone: GMT+8
 
 
   # token过期时间（分钟）
@@ -63,6 +66,12 @@ spring:
   loginTimeLimit: 10
   # 错误超过次数后多少分钟后才能继续登录（分钟）
   loginAfterTime: 10
+
+
+# 打印sql
+logging:
+  level:
+     com.mettre.moduleclient.mapper : debug
 
 
 eureka:

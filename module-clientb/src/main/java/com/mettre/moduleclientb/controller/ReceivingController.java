@@ -2,8 +2,10 @@ package com.mettre.moduleclientb.controller;
 
 import com.mettre.moduleclientb.feign.UserRpcService;
 import com.mettre.modulecommon.base.Result;
+import com.mettre.modulecommon.enums.CustomerException;
 import com.mettre.modulecommon.jwt.SecurityContextStore;
 import com.mettre.modulecommon.pojo.User;
+import com.mettre.modulecommon.resultUtil.ResultUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,8 @@ public class ReceivingController {
     @ApiOperation(value = "添加收货地址")
     public Result<Object> insert() {
         String userId = SecurityContextStore.getContext().getUserId();
-        User user = userFeign.findUserInfo(userId);
-        return Result.ok(user);
+        Result<User> result = userFeign.findUserInfo(userId);
+        if (ResultUtils.getInfoSuccess(result)) ;
+        return Result.ok(result.getResult());
     }
-
 }

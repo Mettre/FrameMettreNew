@@ -143,11 +143,6 @@
             <version>2.0.2.RELEASE</version>
         </dependency>
 
-        <!-- 添加Gson依赖 -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-        </dependency>
     </dependencies>
 
     <dependencyManagement>
