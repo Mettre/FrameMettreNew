@@ -47,7 +47,6 @@ public class LoginController {
     @ApiOperation(value = "获取个人信息")
     public Result<Object> findUserInfo() {
         String userId = SecurityContextStore.getContext().getUserId();
-
         User user = userMapper.selectById(userId);
         if (user == null) {
             throw new CustomerException("个人信息获取失败");
