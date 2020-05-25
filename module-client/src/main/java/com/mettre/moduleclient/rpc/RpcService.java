@@ -1,7 +1,6 @@
 package com.mettre.moduleclient.rpc;
 
 
-import com.google.gson.Gson;
 import com.mettre.moduleclient.mapper.UserMapper;
 import com.mettre.modulecommon.base.Result;
 import com.mettre.modulecommon.enums.CustomerException;

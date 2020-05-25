@@ -2,7 +2,7 @@
 2、jwt 加密
 3、个人信息注册时间格式
 4、result 返回null
-5、索引-Elasticsearch 
+5、索引-Elasticsearch   https://blog.csdn.net/makang110/article/details/80596017
 6、redis
 7、activeMQ/RabbitMQ
 
@@ -58,3 +58,16 @@ docker mysql密码 root 123456
 
 linux mysql 启动报错--->端口被docker里的linux占用  navicat
 docker tomcat 8080加载不了404
+
+
+jenkins 自动化打包部署发布工具
+  开发push代码到gitlab，触发jenkins自动pull代码，通过maven编译、打包，然后通过执行shell脚本使docker构建镜像并push到私服（或者阿里云）仓库，此操作完成后jenkins服务器上再执行SSH命令登录到部署服务器，docker从仓库（私服）拉取镜像，启动容器。整个操作流程完成。
+  https://blog.csdn.net/xiaoxiangzi520/article/details/88842200?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task
+  
+  linux里docker下安装jenkins并linux下安装maven jdk(打包需要)从远程仓库github打包发送到服务器路径 shell脚本部署项目
+  https://www.cnblogs.com/ming-blogs/p/10903408.html
+  
+  密码 f8e7ae76e9fa402ba65aaca4c06a4d89
+  用户id：admin 密码：138137XJPx 名称：mettre
+  docker安装教材   https://www.jianshu.com/p/12c9a9654f83
+  使用Jenkins来自动打包和部署Maven工程【持续集成】  https://blog.csdn.net/pucao_cug/article/details/82531681?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task

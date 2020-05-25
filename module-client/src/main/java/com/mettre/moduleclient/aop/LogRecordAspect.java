@@ -1,7 +1,6 @@
 package com.mettre.moduleclient.aop;
 
 import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -59,8 +58,7 @@ public class LogRecordAspect {
 
         // result的值就是被拦截方法的返回值
         Object result = pjp.proceed();
-        Gson gson = new Gson();
-        logger.info("请求结束===返回值:" + gson.toJson(result));
+        logger.info("请求结束===返回值:" + JSON.toJSONString(result));
         return result;
     }
 
