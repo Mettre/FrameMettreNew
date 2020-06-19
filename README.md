@@ -71,3 +71,18 @@ jenkins 自动化打包部署发布工具
   用户id：admin 密码：138137XJPx 名称：mettre
   docker安装教材   https://www.jianshu.com/p/12c9a9654f83
   使用Jenkins来自动打包和部署Maven工程【持续集成】  https://blog.csdn.net/pucao_cug/article/details/82531681?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task
+  
+  
+jenkins
+  https://www.jianshu.com/p/12c9a9654f83
+
+
+接口文档
+  多服务每个子项目单独的数据库吗
+
+elasticsearch 实战
+  https://mp.weixin.qq.com/s/onbKTlCCw8rUlln-X9WW7w
+
+mongodb
+
+maven
