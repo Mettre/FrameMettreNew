@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mettre.moduleclient.mapper.AccountClassificationMapper">
+    <resultMap id="BaseResultMap" type="com.mettre.moduleclient.pojo.AccountClassification">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="classification_title" property="classificationTitle" jdbcType="VARCHAR"/>
+        <result column="classification_type" property="classificationType" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, classification_title, classification_type
+  </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from f_account_classification
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from f_account_classification
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insert" parameterType="com.mettre.moduleclient.pojo.AccountClassification">
+    insert into f_account_classification (id, classification_title, classification_type
+      )
+    values (#{id,jdbcType=INTEGER}, #{classificationTitle,jdbcType=VARCHAR}, #{classificationType,jdbcType=INTEGER}
+      )
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.mettre.moduleclient.pojo.AccountClassification">
+        insert into f_account_classification
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="classificationTitle != null">
+                classification_title,
+            </if>
+            <if test="classificationType != null">
+                classification_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="classificationTitle != null">
+                #{classificationTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="classificationType != null">
+                #{classificationType,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.mettre.moduleclient.pojo.AccountClassification">
+        update f_account_classification
+        <set>
+            <if test="classificationTitle != null">
+                classification_title = #{classificationTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="classificationType != null">
+                classification_type = #{classificationType,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.mettre.moduleclient.pojo.AccountClassification">
+    update f_account_classification
+    set classification_title = #{classificationTitle,jdbcType=VARCHAR},
+      classification_type = #{classificationType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>
