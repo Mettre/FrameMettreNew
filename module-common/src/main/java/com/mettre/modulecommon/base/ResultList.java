@@ -5,11 +5,11 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ResultListBean<T> {
+public class ResultList<T> {
 
-    private List<T> data;
+    public List<T> data;
 
-    public ResultListBean(List<T> data) {
+    public ResultList(List<T> data) {
         this.data = data;
     }
 }

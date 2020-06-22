@@ -47,39 +47,4 @@ public class DateUtil {
     public static LocalDate calculateEndDate(LocalDate startDate, int cycle) {
         return startDate.plus((long) cycle, ChronoUnit.MONTHS);
     }
-
-    public static String MonthStatistics(String year, String month) {
-        String betweenTime = "";
-        if (StrUtil.isEmpty(month)) {
-            betweenTime = year + "-01-01 00:00:00 between " + year + "-12-31 23:59:59";
-        }
-        switch (month) {
-            case "1":
-                betweenTime = year + "-01-01 00:00:00 between " + year + "-01-31 23:59:59";
-                break;
-            case "2":
-                break;
-            case "3":
-                break;
-            case "4":
-                break;
-            case "5":
-                break;
-            case "6":
-                break;
-            case "7":
-                break;
-            case "8":
-                break;
-            case "9":
-                break;
-            case "10":
-                break;
-            case "11":
-                break;
-            case "12":
-                break;
-        }
-        return betweenTime;
-    }
 }

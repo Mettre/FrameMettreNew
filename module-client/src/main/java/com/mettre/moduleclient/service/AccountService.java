@@ -6,17 +6,19 @@ import com.mettre.moduleclient.inputPojo.AccountListPojoPage;
 import com.mettre.moduleclient.mapper.AccountMapper;
 import com.mettre.moduleclient.mapper.UserMapper;
 import com.mettre.moduleclient.pojo.Account;
+import com.mettre.moduleclient.pojo.MonthAccount;
 import com.mettre.modulecommon.base.ReturnType;
 import com.mettre.modulecommon.jwt.SecurityContextStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
 @Transactional
-public class BookkeepingService {
+public class AccountService {
 
     @Autowired
     public UserMapper userMapper;
@@ -54,6 +56,20 @@ public class BookkeepingService {
         return 0;
     }
 
+
+    /**
+     * 统计月份记账金额情况
+     *
+     * @param month
+     * @param userId
+     * @return
+     */
+    public MonthAccount monthAccountList(Integer year, Integer month, String userId) {
+        List<Account> accountList = accountMapper.monthAccountList(year, month, userId);
+        BigDecimal expenditure = accountMapper.monthAccountExpenditure(year, month, userId);
+        BigDecimal income = accountMapper.monthAccountIncome(year, month, userId);
+        return new MonthAccount(accountList, expenditure, income);
+    }
 
     public List<Account> searchAccountList(AccountListPojo accountListPojo, String userId) {
         List<Account> accountList = (List<Account>) accountMapper.searchAccountList(accountListPojo, userId);

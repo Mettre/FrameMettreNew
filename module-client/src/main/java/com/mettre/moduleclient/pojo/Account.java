@@ -20,6 +20,8 @@ public class Account {
 
     private Integer type;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date recordDay;
 
     private Date crateTime;
@@ -28,6 +30,9 @@ public class Account {
 
     private Integer userId;
 
+    public Account() {
+
+    }
 
     /**
      * 记账
