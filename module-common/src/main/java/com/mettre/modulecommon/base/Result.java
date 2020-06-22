@@ -114,6 +114,7 @@ public class Result<T> implements Serializable {
         Result<T> msg = new Result<>();
         msg.msg = message;
         msg.code = code;
+        msg.result = (T) new ResultBean();
         return msg.putTimeStamp();
     }
 
@@ -129,6 +130,20 @@ public class Result<T> implements Serializable {
                 .result(result)
                 .putTimeStamp()
                 .code(ResultEnum.BUSINESS_FAIL.getCode()).msg(ResultEnum.BUSINESS_FAIL.getMsg());
+    }
+
+    /**
+     * 请求成功  默认code为0 掺入对应的返回结果
+     *
+     * @param <T>
+     * @return
+     */
+    public static <T> Result<T> ok() {
+        return new Result<T>()
+                .putTimeStamp()
+                .code(ResultEnum.RESULT_SUCCESS.getCode())
+                .result((T) new com.mettre.modulecommon.base.ResultBean())
+                .msg(ResultEnum.RESULT_SUCCESS.getMsg());
     }
 
     /**

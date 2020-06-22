@@ -25,7 +25,7 @@
         <!-- 类型转换 -->
         <javaTypeResolver>
             <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
-            <property name="forceBigDecimals" value="false"/>
+            <property name="forceBigDecimals" value="true"/>
         </javaTypeResolver>
 
         <!-- 生成实体类地址 -->
@@ -51,19 +51,19 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
-         <!--配置表信息-->
-        <table tableName="f_user"
-               domainObjectName="User" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false">
-        </table>
-        <!--<table tableName="wc_user"-->
+         <!--&lt;!&ndash;配置表信息&ndash;&gt;-->
+        <!--<table tableName="f_user"-->
                <!--domainObjectName="User" enableCountByExample="false"-->
                <!--enableDeleteByExample="false" enableSelectByExample="false"-->
                <!--enableUpdateByExample="false">-->
         <!--</table>-->
-        <!--<table tableName="wc_sms"-->
-               <!--domainObjectName="Sms" enableCountByExample="false"-->
+        <!--<table tableName="f_account"-->
+               <!--domainObjectName="Account" enableCountByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--enableUpdateByExample="false">-->
+        <!--</table>-->
+        <!--<table tableName="f_account_classification"-->
+               <!--domainObjectName="AccountClassification" enableCountByExample="false"-->
                <!--enableDeleteByExample="false" enableSelectByExample="false"-->
                <!--enableUpdateByExample="false">-->
         <!--</table>-->
