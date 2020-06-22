@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.moduleclient.inputPojo.AccountListPojo;
 import com.mettre.moduleclient.inputPojo.AccountListPojoPage;
 import com.mettre.moduleclient.pojo.Account;
-import com.mettre.moduleclient.pojo.MonthAccount;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -36,4 +35,9 @@ public interface AccountMapper {
 
     List<Account> searchAccountListPage(Page<Account> page, @Param(value = "accountListPojo") AccountListPojoPage accountListPojo, @Param(value = "userId") String userId);
 
+    List<String> recommendTitleList(@Param(value = "type") Integer type, @Param(value = "userId") String userId);
+
+    Integer totalAccountNum(@Param(value = "userId") String userId);
+
+    Integer totalAccountDay(@Param(value = "userId") String userId);
 }

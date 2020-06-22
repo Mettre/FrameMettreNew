@@ -260,4 +260,44 @@
         </where>
     </select>
 
+    <!--推荐标题排序-->
+    <select id="recommendTitleList" resultType="java.lang.String" parameterType="java.lang.String">
+        select title,count(*) as count from f_account
+        <where>
+            1=1
+            <if test="userId != null">
+                and user_id = #{userId,jdbcType=VARCHAR}
+            </if>
+            <if test="type != null">
+                and type = #{type,jdbcType=INTEGER}
+            </if>
+        </where>
+        group by title
+        order by count desc
+    </select>
+
+    <!--统计记账总信息 总天数-->
+    <select id="totalAccountDay" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(*) from
+        (select count(*) num from f_account
+        <where>
+            1=1
+            <if test="userId != null">
+                and user_id = #{userId,jdbcType=VARCHAR}
+            </if>
+        </where>
+        group by record_day) as A
+    </select>
+
+    <!--统计记账总信息 总条数-->
+    <select id="totalAccountNum" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(*) from
+        f_account
+        <where>
+            1=1
+            <if test="userId != null">
+                and user_id = #{userId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
 </mapper>

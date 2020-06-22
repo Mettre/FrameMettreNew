@@ -5,6 +5,7 @@ import com.mettre.moduleclient.inputPojo.AccountListPojo;
 import com.mettre.moduleclient.inputPojo.AccountListPojoPage;
 import com.mettre.moduleclient.inputPojo.AccountPojo;
 import com.mettre.moduleclient.pojo.Account;
+import com.mettre.moduleclient.pojo.AccountStatisticsBean;
 import com.mettre.moduleclient.pojo.MonthAccount;
 import com.mettre.moduleclient.service.AccountService;
 import com.mettre.modulecommon.base.Result;
@@ -25,23 +26,21 @@ import java.util.List;
 @Api(description = "记账")
 public class AccountController {
 
-
     @Autowired
-    public AccountService bookkeepingService;
-
+    public AccountService accountService;
 
     @ApiOperation(value = "添加记账")
     @PostMapping(value = "/loginEd/add")
     public Result<ResultBean> addBookkeeping(@Valid @RequestBody AccountPojo accountPojo) {
         String userId = SecurityContextStore.getContext().getUserId();
-        bookkeepingService.insert(new Account(accountPojo, Integer.parseInt(userId)));
+        accountService.insert(new Account(accountPojo, Integer.parseInt(userId)));
         return Result.ok();
     }
 
     @ApiOperation(value = "删除记账")
     @GetMapping(value = "/loginEd/delete/{id}")
     public Result<ResultBean> deleteByPrimaryKey(@PathVariable Integer id) {
-        bookkeepingService.deleteByPrimaryKey(id);
+        accountService.deleteByPrimaryKey(id);
         return Result.ok();
     }
 
@@ -50,21 +49,36 @@ public class AccountController {
     public Result<Object> searchAccountListPage(@Valid @RequestBody AccountListPojoPage accountListPojo) {
         String userId = SecurityContextStore.getContext().getUserId();
         Page<Account> page = new Page<>(accountListPojo.getPage(), accountListPojo.getSize());
-        return Result.ok(bookkeepingService.searchAccountListPage(page, accountListPojo, userId));
+        return Result.ok(accountService.searchAccountListPage(page, accountListPojo, userId));
     }
 
     @ApiOperation(value = "记账列表")
     @PostMapping(value = "/loginEd/getAccountList")
     public Result<Object> searchAccountList(@RequestBody AccountListPojo accountListPojo) {
         String userId = SecurityContextStore.getContext().getUserId();
-        return Result.ok(new ResultList(bookkeepingService.searchAccountList(accountListPojo, userId)));
+        return Result.ok(new ResultList(accountService.searchAccountList(accountListPojo, userId)));
     }
 
-    @ApiOperation(value = "统计月份记账金额情况")
+    @ApiOperation(value = "统计月份记账记录")
     @PostMapping(value = "/loginEd/statisticsMonth")
     public Result<Object> monthBill(@Valid @RequestParam Integer year, @Valid @RequestParam Integer month) {
         String userId = SecurityContextStore.getContext().getUserId();
-        MonthAccount monthAccount = bookkeepingService.monthAccountList(year, month, userId);
+        MonthAccount monthAccount = accountService.monthAccountList(year, month, userId);
         return Result.ok(monthAccount);
+    }
+
+    @ApiOperation(value = "推荐标题排序")
+    @GetMapping(value = "/loginEd/recommendTitle/{type}")
+    public Result<Object> recommendTitle(@PathVariable Integer type) {
+        String userId = SecurityContextStore.getContext().getUserId();
+        List<String> recommendTitleList = accountService.recommendTitle(type, userId);
+        return Result.ok(new ResultList(recommendTitleList));
+    }
+
+    @ApiOperation(value = "记账统计信息")
+    @GetMapping(value = "/loginEd/statistics")
+    public Result<Object> accountStatisticsBean() {
+        String userId = SecurityContextStore.getContext().getUserId();
+        return Result.ok(accountService.accountStatisticsBean(userId));
     }
 }

@@ -9,9 +9,9 @@ import java.util.List;
 @Data
 public class MonthAccount extends ResultList {
 
-    public BigDecimal expenditure;
+    public BigDecimal expenditure;//支出
 
-    public BigDecimal income;
+    public BigDecimal income;//收人
 
     public MonthAccount(List data) {
         super(data);

@@ -6,9 +6,11 @@ import com.mettre.moduleclient.inputPojo.AccountListPojoPage;
 import com.mettre.moduleclient.mapper.AccountMapper;
 import com.mettre.moduleclient.mapper.UserMapper;
 import com.mettre.moduleclient.pojo.Account;
+import com.mettre.moduleclient.pojo.AccountStatisticsBean;
 import com.mettre.moduleclient.pojo.MonthAccount;
 import com.mettre.modulecommon.base.ReturnType;
 import com.mettre.modulecommon.jwt.SecurityContextStore;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,5 +81,26 @@ public class AccountService {
     public Page<Account> searchAccountListPage(Page<Account> page, AccountListPojoPage accountListPojo, String userId) {
         List<Account> accountList = (List<Account>) accountMapper.searchAccountListPage(page, accountListPojo, userId);
         return page.setRecords(accountList);
+    }
+
+    /**
+     * 推荐标题
+     *
+     * @return
+     */
+    public List<String> recommendTitle(Integer type, String userId) {
+        List<String> recommendTitleList = accountMapper.recommendTitleList(type, userId);
+        return recommendTitleList;
+    }
+
+    /**
+     * 记账统计信息
+     *
+     * @return
+     */
+    public AccountStatisticsBean accountStatisticsBean(String userId) {
+        Integer totalAccountNum = accountMapper.totalAccountNum(userId);
+        Integer totalAccountDay = accountMapper.totalAccountDay(userId);
+        return new AccountStatisticsBean(totalAccountNum, totalAccountDay);
     }
 }

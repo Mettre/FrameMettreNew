@@ -41,7 +41,7 @@ public class ModuleClientApplication {
         List<String> urlPatterns = new ArrayList<String>();
         urlPatterns.add("/loginEd/*");
         urlPatterns.add("/user/loginEd/*");
-        urlPatterns.add("/bookkeeping/loginEd/*");
+        urlPatterns.add("/account/loginEd/*");
         registrationBean.setUrlPatterns(urlPatterns);
         return registrationBean;
     }
