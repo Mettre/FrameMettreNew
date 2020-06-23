@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mettre.modulefriend.mapper.ReplyMapper">
+    <resultMap id="BaseResultMap" type="com.mettre.modulefriend.pojo.Reply">
+        <id column="reply_id" property="replyId" jdbcType="VARCHAR"/>
+        <result column="dynamic_id" property="dynamicId" jdbcType="VARCHAR"/>
+        <result column="reply_parent_user_id" property="replyParentUserId" jdbcType="VARCHAR"/>
+        <result column="dynamic_user_id" property="dynamicUserId" jdbcType="VARCHAR"/>
+        <result column="reply_content" property="replyContent" jdbcType="VARCHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+        <result column="reply_parent_id" property="replyParentId" jdbcType="VARCHAR"/>
+        <result column="is_show" property="isShow" jdbcType="TINYINT"/>
+        <result column="second_dynamic_id" property="secondDynamicId" jdbcType="VARCHAR"/>
+        <result column="user_name2" property="replyParentUserName" jdbcType="VARCHAR"/>
+        <result column="user_name1" property="userName" jdbcType="VARCHAR"/>
+        <result column="head_avatar" property="headAvatar" jdbcType="VARCHAR"/>
+        <result column="own" property="own" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <resultMap id="BaseListResultMap" type="com.mettre.modulefriend.pojo.Reply">
+        <id column="reply_id" property="replyId" jdbcType="VARCHAR"/>
+        <result column="dynamic_id" property="dynamicId" jdbcType="VARCHAR"/>
+        <result column="reply_parent_user_id" property="replyParentUserId" jdbcType="VARCHAR"/>
+        <result column="dynamic_user_id" property="dynamicUserId" jdbcType="VARCHAR"/>
+        <result column="reply_content" property="replyContent" jdbcType="VARCHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+        <result column="reply_parent_id" property="replyParentId" jdbcType="VARCHAR"/>
+        <result column="is_show" property="isShow" jdbcType="TINYINT"/>
+        <result column="second_dynamic_id" property="secondDynamicId" jdbcType="VARCHAR"/>
+        <result column="user_name2" property="replyParentUserName" jdbcType="VARCHAR"/>
+        <result column="user_name1" property="userName" jdbcType="VARCHAR"/>
+        <result column="head_avatar" property="headAvatar" jdbcType="VARCHAR"/>
+        <result column="own" property="own" jdbcType="TINYINT"/>
+        <collection property="replyList" column="{secondDynamicId = second_dynamic_id,userId = dynamic_user_id}"
+                    javaType="ArrayList"
+                    select="com.mettre.modulefriend.mapper.ReplyMapper.selectSecondMoments">
+        </collection>
+    </resultMap>
+
+
+    <sql id="Base_Column">
+    reply_id, dynamic_id, reply_parent_user_id, dynamic_user_id, reply_content,reply_parent_id,
+    wc_reply.creation_time, wc_reply.is_show,second_dynamic_id
+  </sql>
+
+    <sql id="Base_Column_List2">
+    reply_id, reply_parent_user_id, dynamic_user_id, reply_content,reply_parent_id,
+    wc_reply.creation_time, wc_reply.is_show,wc_user1.user_name user_name1,wc_user1.head_avatar,wc_user2.user_name user_name2,second_dynamic_id
+    ,if(dynamic_user_id=#{userId,jdbcType=VARCHAR},true ,false) as own
+  </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column"/>
+        from wc_reply
+        where reply_id = #{replyId,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from wc_reply
+    where reply_id = #{replyId,jdbcType=VARCHAR}
+  </delete>
+
+    <insert id="insert" parameterType="com.mettre.modulefriend.pojo.Reply">
+    insert into wc_reply (reply_id, dynamic_id,
+      reply_parent_user_id, dynamic_user_id, reply_content,
+      creation_time, is_show, dynamic_type,reply_parent_id,second_dynamic_id
+      )
+    values (#{replyId,jdbcType=VARCHAR}, #{dynamicId,jdbcType=VARCHAR},
+      #{replyParentUserId,jdbcType=VARCHAR}, #{dynamicUserId,jdbcType=VARCHAR}, #{replyContent,jdbcType=VARCHAR},
+      #{creationTime,jdbcType=TIMESTAMP}, #{isShow,jdbcType=TINYINT}, #{dynamicType,jdbcType=VARCHAR},#{replyParentId,jdbcType=VARCHAR},#{secondDynamicId,jdbcType=VARCHAR}
+      )
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.mettre.modulefriend.pojo.Reply">
+        insert into wc_reply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="replyId != null">
+                reply_id,
+            </if>
+            <if test="dynamicId != null">
+                dynamic_id,
+            </if>
+            <if test="replyParentUserId != null">
+                reply_parent_user_id,
+            </if>
+            <if test="dynamicUserId != null">
+                dynamic_user_id,
+            </if>
+            <if test="replyContent != null">
+                reply_content,
+            </if>
+            <if test="creationTime != null">
+                creation_time,
+            </if>
+            <if test="isShow != null">
+                is_show,
+            </if>
+            <if test="dynamicType != null">
+                dynamic_type,
+            </if>
+            <if test="replyParentId != null">
+                reply_parent_id,
+            </if>
+            <if test="secondDynamicId != null">
+                second_dynamic_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="replyId != null">
+                #{replyId,jdbcType=VARCHAR},
+            </if>
+            <if test="dynamicId != null">
+                #{dynamicId,jdbcType=VARCHAR},
+            </if>
+            <if test="replyParentUserId != null">
+                #{replyParentUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="dynamicUserId != null">
+                #{dynamicUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="replyContent != null">
+                #{replyContent,jdbcType=VARCHAR},
+            </if>
+            <if test="creationTime != null">
+                #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isShow != null">
+                #{isShow,jdbcType=TINYINT},
+            </if>
+            <if test="dynamicType != null">
+                #{dynamicType,jdbcType=VARCHAR},
+            </if>
+            <if test="replyParentId != null">
+                #{replyParentId,jdbcType=VARCHAR},
+            </if>
+            <if test="secondDynamicId != null">
+                #{secondDynamicId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.mettre.modulefriend.pojo.Reply">
+        update wc_reply
+        <set>
+            <if test="dynamicId != null">
+                dynamic_id = #{dynamicId,jdbcType=VARCHAR},
+            </if>
+            <if test="replyParentUserId != null">
+                reply_parent_user_id = #{replyParentUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="dynamicUserId != null">
+                dynamic_user_id = #{dynamicUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="replyContent != null">
+                reply_content = #{replyContent,jdbcType=VARCHAR},
+            </if>
+            <if test="creationTime != null">
+                creation_time = #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isShow != null">
+                is_show = #{isShow,jdbcType=TINYINT},
+            </if>
+            <if test="dynamicType != null">
+                dynamic_type = #{dynamicType,jdbcType=VARCHAR},
+            </if>
+            <if test="replyParentId != null">
+                reply_parent_Id = #{replyParentId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where reply_id = #{replyId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.mettre.modulefriend.pojo.Reply">
+     update wc_reply
+     set dynamic_id = #{dynamicId,jdbcType=VARCHAR},
+      reply_parent_user_id = #{replyParentUserId,jdbcType=VARCHAR},
+      dynamic_user_id = #{dynamicUserId,jdbcType=VARCHAR},
+      reply_content = #{replyContent,jdbcType=VARCHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      is_show = #{isShow,jdbcType=TINYINT},
+      dynamic_type = #{dynamicType,jdbcType=VARCHAR}
+     where reply_id = #{replyId,jdbcType=VARCHAR}
+  </update>
+
+
+    <!--获取二级评论下的全部评论列表-->
+    <select id="selectSecondMoments" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List2"></include>
+        FROM wc_reply
+        left join wc_user as wc_user1
+        on wc_reply.dynamic_user_id = wc_user1.user_id
+        left join wc_user as wc_user2
+        on wc_reply.reply_parent_user_id = wc_user2.user_id
+        <if test="secondDynamicId != null">
+            WHERE wc_reply.second_dynamic_id = #{secondDynamicId,jdbcType=VARCHAR}
+        </if>
+        and wc_reply.reply_parent_id is not null
+        order by wc_reply.creation_time asc
+        limit 2
+    </select>
+
+    <!--微信评论列表-->
+    <select id="selectMomentsReply" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List2"></include>
+        FROM wc_reply
+        left join wc_user as wc_user1
+        on wc_reply.dynamic_user_id = wc_user1.user_id
+        left join wc_user as wc_user2
+        on wc_reply.reply_parent_user_id = wc_user2.user_id
+        <if test="dynamicId != null">
+            WHERE wc_reply.dynamic_id = #{dynamicId,jdbcType=VARCHAR}
+        </if>
+        order by wc_reply.creation_time asc
+    </select>
+
+    <!--评论列表 多级-->
+    <select id="selectPageVo" resultMap="BaseListResultMap">
+        SELECT
+        <include refid="Base_Column_List2"></include>
+        FROM wc_reply
+        left join wc_user as wc_user1
+        on wc_reply.dynamic_user_id = wc_user1.user_id
+        left join wc_user as wc_user2
+        on wc_reply.reply_parent_user_id = wc_user2.user_id
+        <if test="dynamicId != null">
+            WHERE wc_reply.dynamic_id = #{dynamicId,jdbcType=VARCHAR}
+        </if>
+        and wc_reply.reply_parent_id is null
+        order by wc_reply.creation_time asc
+    </select>
+
+</mapper>

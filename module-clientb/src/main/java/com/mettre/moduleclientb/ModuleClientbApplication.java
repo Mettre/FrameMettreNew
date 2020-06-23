@@ -17,7 +17,7 @@ import java.util.List;
 @SpringBootApplication
 @RestController
 @MapperScan("com.baomidou.mybatisplus.samples.quickstart.mapper")
-//@MapperScan("com.mettre.moduleclient.mapper")
+@MapperScan("com.mettre.moduleclientb.mapper")
 @EnableFeignClients(basePackages = {"com.mettre.moduleclientb.feign"})
 public class ModuleClientbApplication {
 

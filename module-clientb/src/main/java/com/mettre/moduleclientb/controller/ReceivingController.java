@@ -2,7 +2,6 @@ package com.mettre.moduleclientb.controller;
 
 import com.mettre.moduleclientb.feign.UserRpcService;
 import com.mettre.modulecommon.base.Result;
-import com.mettre.modulecommon.enums.CustomerException;
 import com.mettre.modulecommon.jwt.SecurityContextStore;
 import com.mettre.modulecommon.pojo.User;
 import com.mettre.modulecommon.resultUtil.ResultUtils;

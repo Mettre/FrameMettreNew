@@ -1,5 +1,6 @@
 package com.mettre.modulegateway2.config;
 
+import com.mettre.modulecommon.util.Utils;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -57,7 +58,7 @@ public class Swagger2Config {
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build()
-                .globalOperationParameters(setHeaderToken());
+                .globalOperationParameters(Utils.setHeaderToken());
     }
 
     private ApiInfo apiInfo() {
@@ -74,13 +75,5 @@ public class Swagger2Config {
     UiConfiguration uiConfig() {
         return new UiConfiguration(null, "list", "alpha", "schema",
                 UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS, false, true, 60000L);
-    }
-
-    private List<Parameter> setHeaderToken() {
-        ParameterBuilder tokenPar = new ParameterBuilder();
-        List<Parameter> pars = new ArrayList<Parameter>();
-        tokenPar.name("authorities").description("token").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
-        pars.add(tokenPar.build());
-        return pars;
     }
 }

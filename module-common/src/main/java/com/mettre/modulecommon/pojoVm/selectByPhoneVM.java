@@ -1,4 +1,4 @@
-package com.mettre.moduleclient.pojo;
+package com.mettre.modulecommon.pojoVm;
 
 import com.mettre.modulecommon.pojo.BasePage;
 import io.swagger.annotations.ApiModelProperty;

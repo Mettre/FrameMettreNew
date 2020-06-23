@@ -1,5 +1,6 @@
 package com.mettre.moduleclientb.config;
 
+import com.mettre.modulecommon.util.Utils;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,7 +59,7 @@ public class Swagger2Config {
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build()
-                .globalOperationParameters(setHeaderToken());
+                .globalOperationParameters(Utils.setHeaderToken());
     }
 
     private ApiInfo apiInfo() {
@@ -69,13 +70,5 @@ public class Swagger2Config {
                 .contact(new Contact(name, url, email))
                 .version(version)
                 .build();
-    }
-
-    private List<Parameter> setHeaderToken() {
-        ParameterBuilder tokenPar = new ParameterBuilder();
-        List<Parameter> pars = new ArrayList<Parameter>();
-        tokenPar.name("authorities").description("token").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
-        pars.add(tokenPar.build());
-        return pars;
     }
 }

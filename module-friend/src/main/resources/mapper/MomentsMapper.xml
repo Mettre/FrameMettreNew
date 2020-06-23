@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mettre.modulefriend.mapper.MomentsMapper">
+    <resultMap id="BaseResultMap" type="com.mettre.modulefriend.pojo.MomentsParameter">
+        <id column="moments_id" property="momentsId" jdbcType="VARCHAR"/>
+        <result column="moments_title" property="momentsTitle" jdbcType="VARCHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+        <result column="is_show" property="isShow" jdbcType="TINYINT"/>
+        <result column="moments_image" property="momentsImage" jdbcType="VARCHAR"/>
+        <result column="moments_type" property="momentsType" jdbcType="VARCHAR"/>
+        <result column="date2" property="date" jdbcType="TIMESTAMP"/>
+        <association property="userBean" javaType="com.mettre.modulefriend.pojo.UserBean">
+            <result column="publisher_user_id" property="publisherUserId" jdbcType="VARCHAR"/>
+            <result column="user_name" property="publisherUserName" jdbcType="VARCHAR"/>
+            <result column="head_avatar" property="publisherHeadAvatar" jdbcType="VARCHAR"/>
+            <result column="background_wall" property="publisherBackgroundWall" jdbcType="VARCHAR"/>
+            <result column="signature" property="signature" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+    <!--朋友圈加评论-->
+    <resultMap id="BaseResultMap2" type="com.mettre.modulefriend.pojo.MomentsDetails">
+        <id column="moments_id" property="momentsId" jdbcType="VARCHAR"/>
+        <association property="moments" javaType="com.mettre.modulefriend.pojo.MomentsParameter">
+            <id column="moments_id" property="momentsId" jdbcType="VARCHAR"/>
+            <result column="moments_title" property="momentsTitle" jdbcType="VARCHAR"/>
+            <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+            <result column="is_show" property="isShow" jdbcType="TINYINT"/>
+            <result column="moments_image" property="momentsImage" jdbcType="VARCHAR"/>
+            <result column="moments_type" property="momentsType" jdbcType="VARCHAR"/>
+            <result column="date2" property="date" jdbcType="TIMESTAMP"/>
+            <association property="userBean" javaType="com.mettre.modulefriend.pojo.UserBean">
+                <result column="publisher_user_id" property="publisherUserId" jdbcType="VARCHAR"/>
+                <result column="user_name" property="publisherUserName" jdbcType="VARCHAR"/>
+                <result column="head_avatar" property="publisherHeadAvatar" jdbcType="VARCHAR"/>
+                <result column="background_wall" property="publisherBackgroundWall" jdbcType="VARCHAR"/>
+                <result column="signature" property="signature" jdbcType="VARCHAR"/>
+            </association>
+        </association>
+        <collection property="replyList" column="dynamicId = moments_id" ofType="Reply"
+                    javaType="ArrayList"
+                    select="com.mettre.modulefriend.mapper.ReplyMapper.selectMomentsReply">
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List2">
+    moments_id, moments_title, wc_moments.publisher_user_id,wc_user.user_name,wc_user.head_avatar,wc_user.background_wall,wc_user.signature, wc_moments.creation_time, wc_moments.is_show,
+    moments_image,moments_type,DATE_FORMAT(wc_moments.creation_time,'%Y-%m-%d') as date2
+  </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List2"/>
+        from wc_moments
+        left join wc_user
+        on wc_moments.publisher_user_id = wc_user.user_id
+        where moments_id = #{momentsId,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from wc_moments
+    where moments_id = #{momentsId,jdbcType=VARCHAR}
+  </delete>
+
+    <insert id="insert" parameterType="com.mettre.modulefriend.pojo.Moments">
+    insert into wc_moments (moments_id, moments_title, publisher_user_id, 
+      creation_time, is_show,
+      moments_image,moments_type)
+    values (#{momentsId,jdbcType=VARCHAR}, #{momentsTitle,jdbcType=VARCHAR}, #{publisherUserId,jdbcType=VARCHAR}, 
+      #{creationTime,jdbcType=TIMESTAMP}, #{isShow,jdbcType=TINYINT},
+      #{momentsImage,jdbcType=VARCHAR},#{momentsType,jdbcType=VARCHAR})
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.mettre.modulefriend.pojo.Moments">
+        insert into wc_moments
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="momentsId != null">
+                moments_id,
+            </if>
+            <if test="momentsTitle != null">
+                moments_title,
+            </if>
+            <if test="publisherUserId != null">
+                publisher_user_id,
+            </if>
+            <if test="creationTime != null">
+                creation_time,
+            </if>
+            <if test="isShow != null">
+                is_show,
+            </if>
+            <if test="momentsImage != null">
+                moments_image,
+            </if>
+            <if test="momentsType != null">
+                moments_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="momentsId != null">
+                #{momentsId,jdbcType=VARCHAR},
+            </if>
+            <if test="momentsTitle != null">
+                #{momentsTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="publisherUserId != null">
+                #{publisherUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="creationTime != null">
+                #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isShow != null">
+                #{isShow,jdbcType=TINYINT},
+            </if>
+            <if test="momentsImage != null">
+                #{momentsImage,jdbcType=VARCHAR},
+            </if>
+            <if test="momentsType != null">
+                #{momentsType,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.mettre.modulefriend.pojo.Moments">
+        update wc_moments
+        <set>
+            <if test="momentsTitle != null">
+                moments_title = #{momentsTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="publisherUserId != null">
+                publisher_user_id = #{publisherUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="creationTime != null">
+                creation_time = #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isShow != null">
+                is_show = #{isShow,jdbcType=TINYINT},
+            </if>
+            <if test="momentsImage != null">
+                moments_image = #{momentsImage,jdbcType=VARCHAR},
+            </if>
+            <if test="momentsType != null">
+                moments_type = #{momentsType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where moments_id = #{momentsId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.mettre.modulefriend.pojo.Moments">
+    update wc_moments
+    set moments_title = #{momentsTitle,jdbcType=VARCHAR},
+      publisher_user_id = #{publisherUserId,jdbcType=VARCHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      is_show = #{isShow,jdbcType=TINYINT},
+      moments_image = #{momentsImage,jdbcType=VARCHAR},
+        moments_type = #{momentsType,jdbcType=VARCHAR},
+    where moments_id = #{momentsId,jdbcType=VARCHAR}
+  </update>
+
+    <!--查询某个人发布的朋友圈-->
+    <select id="selectPageVo" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List2"></include>
+        FROM wc_moments
+        left join wc_user
+        on wc_moments.publisher_user_id = wc_user.user_id
+        WHERE publisher_user_id = #{publisherUserId,jdbcType=VARCHAR}
+        order by creation_time desc
+    </select>
+
+
+    <!--我好友的朋友圈-->
+    <select id="circleFriendsPageVo" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List2"></include>
+        FROM wc_moments
+        left join wc_user
+        on wc_moments.publisher_user_id = wc_user.user_id
+        WHERE publisher_user_id in
+        ( SELECT wc_follow.followed_user
+        FROM wc_follow
+        inner join wc_follow as wc_follow2
+        on wc_follow.user_id = wc_follow2.followed_user
+        and wc_follow.followed_user = wc_follow2.user_id
+        and wc_follow2.status = true
+        where wc_follow.user_id = #{userId,jdbcType=VARCHAR}
+        and wc_follow.status = true)
+        or publisher_user_id = #{userId,jdbcType=VARCHAR}
+        order by creation_time desc
+    </select>
+
+    <!--朋友圈加评论-->
+    <select id="selectMomentsDetails" resultMap="BaseResultMap2" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List2"/>
+        from wc_moments
+        left join wc_user
+        on wc_moments.publisher_user_id = wc_user.user_id
+        where moments_id = #{momentsId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

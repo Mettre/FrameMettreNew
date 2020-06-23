@@ -21,9 +21,9 @@ public class RpcService {
     @RequestMapping(value = "/getUserInfo", method = RequestMethod.GET)
     @ApiOperation(value = "根据userId获取个人信息")
     public Result<User> findUserInfo(String userId) {
-        User user = userMapper.selectById(userId);
+        User user = userMapper.selectByPrimaryKey(userId);
         if (user == null) {
-            throw new CustomerException("个人信息获取失败");
+            throw new CustomerException("用户信息获取失败");
         }
         return Result.ok(new User(user));
     }

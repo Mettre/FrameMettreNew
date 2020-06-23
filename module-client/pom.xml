@@ -12,7 +12,7 @@
     <artifactId>module-client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>module-client</name>
-    <description>微服务服务A</description>
+    <description>微服务用户模块</description>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -42,6 +42,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

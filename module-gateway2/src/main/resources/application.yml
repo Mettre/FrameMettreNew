@@ -22,6 +22,8 @@ zuul:
     routes:
           module-client:
                 path: /module-client/**
+          account:
+                path: /account/**
 
 # Swagger界面内容配置
 swagger:

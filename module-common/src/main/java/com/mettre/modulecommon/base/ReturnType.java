@@ -31,4 +31,11 @@ public class ReturnType {
         }
         return object;
     }
+
+    public static Object ReturnType(Object object, String resultMsg) {
+        if (object == null) {
+            throw new CustomerException(resultMsg);
+        }
+        return object;
+    }
 }

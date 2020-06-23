@@ -4,6 +4,7 @@ import com.mettre.modulecommon.base.Result;
 import com.mettre.modulecommon.enums.CustomerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,7 +31,9 @@ public class ExceptionHandle {
             BindException exception = (BindException) e;
             FieldError fieldError = exception.getBindingResult().getFieldError();
             return Result.error(400, fieldError.getDefaultMessage());
-        } else {
+        } else if (e instanceof DuplicateKeyException) {
+            return Result.error("已存在的数据");
+        }  else {
             logger.error("[系统异常 {}", e);
             return Result.error("未知错误" + e.getMessage());
         }

@@ -20,14 +20,14 @@ public class JwtUtils {
         //登陆成功生成token
         String jwt = Jwts.builder()
                 //主题 放入用户名
-                .setSubject(String.valueOf(user.getId()))
+                .setSubject(user.getUserId())
                 //失效时间
                 .setExpiration(new Date(tokenExpiration))
                 //签名算法和密钥
                 .signWith(SignatureAlgorithm.HS256, CommonConstant.JWT_TOKEN)
                 .compact();
 
-        return new AccessToken(jwt, "basic", tokenExpireTime, String.valueOf(user.getId()));
+        return new AccessToken(jwt, "basic", tokenExpireTime, user.getUserId());
     }
 
     /**

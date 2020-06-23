@@ -47,25 +47,36 @@ public final class RandomUtil {
         return "B" + DateUtil.getCurrentTimeStr() + RandomStringUtils.randomNumeric(4);
     }
 
-    public static String generateRefundNumber() {
+    /**
+     * 阅读id
+     * @return
+     */
+    public static String ReadInformationNumber() {
         return "R" + DateUtil.getCurrentTimeStr() + RandomStringUtils.randomNumeric(4);
     }
 
-    public static String generateFollowNumber() {
-        return "F" + DateUtil.getCurrentTimeStr() + RandomStringUtils.randomNumeric(4);
+    /**
+     * 闹钟id
+     * @return
+     */
+    public static String AlarmClockNumber() {
+        return "C" + DateUtil.getCurrentTimeStr() + RandomStringUtils.randomNumeric(4);
     }
 
-    public static String generateVisitorNumber() {
-        return "V" + System.currentTimeMillis() + RandomStringUtils.randomNumeric(4);
+    /**
+     * 评论id
+     * @return
+     */
+    public static String ReplyInformationNumber() {
+        return "RP" + DateUtil.getCurrentTimeStr() + RandomStringUtils.randomNumeric(4);
+    }
+    public static String generateNickName() {
+        return "u" + System.currentTimeMillis() + RandomStringUtils.randomNumeric(5);
     }
 
 
     public static String generateUserId() {
         return DateUtil.getCurrentTimeStr() + RandomStringUtils.randomNumeric(5);
-    }
-
-    public static String generateNickName() {
-        return "u" + System.currentTimeMillis() + RandomStringUtils.randomNumeric(5);
     }
 
     public static String generateFileKey() {
