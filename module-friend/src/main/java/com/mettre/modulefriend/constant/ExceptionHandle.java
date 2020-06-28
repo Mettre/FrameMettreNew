@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +30,10 @@ public class ExceptionHandle {
             return Result.error(customerException.getCode(), e.getMessage());
         } else if (e instanceof BindException) {
             BindException exception = (BindException) e;
+            FieldError fieldError = exception.getBindingResult().getFieldError();
+            return Result.error(400, fieldError.getDefaultMessage());
+        } else if (e instanceof MethodArgumentNotValidException) {
+            MethodArgumentNotValidException exception = (MethodArgumentNotValidException) e;
             FieldError fieldError = exception.getBindingResult().getFieldError();
             return Result.error(400, fieldError.getDefaultMessage());
         } else if (e instanceof DuplicateKeyException) {
