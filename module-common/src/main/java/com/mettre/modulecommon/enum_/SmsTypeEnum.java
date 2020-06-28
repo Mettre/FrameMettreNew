@@ -1,4 +1,4 @@
-package com.mettre.modulecommon.enums;
+package com.mettre.modulecommon.enum_;
 
 public enum SmsTypeEnum {
 

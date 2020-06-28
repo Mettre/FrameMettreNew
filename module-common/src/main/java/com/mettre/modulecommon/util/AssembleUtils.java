@@ -1,6 +1,6 @@
 package com.mettre.modulecommon.util;
 
-import com.mettre.modulecommon.enums.SmsTypeEnum;
+import com.mettre.modulecommon.enum_.SmsTypeEnum;
 
 /**
  * 组装拼接字符串

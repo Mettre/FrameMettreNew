@@ -3,6 +3,7 @@ package com.mettre.modulefriend.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.modulecommon.base.Result;
 import com.mettre.modulecommon.base.ResultBean;
+import com.mettre.modulecommon.base.ResultList;
 import com.mettre.modulecommon.jwt.SecurityContextStore;
 import com.mettre.modulefriend.pojo.Reply;
 import com.mettre.modulefriend.pojoVM.ReplyVM;
@@ -48,7 +49,7 @@ public class ReplyController {
     @ApiOperation(value = "朋友圈评论列表")
     public Result<Object> findMomentsCategoryList(@RequestParam String dynamicId, String userId) {
         List<Reply> replyList = replyService.selectMomentsReply(dynamicId, userId);
-        return new Result<>().ok(replyList);
+        return new Result<>().ok(new ResultList(replyList));
     }
 
     @RequestMapping(value = "/loginEd/deleteReplyFromUser{replyId}", method = RequestMethod.GET)

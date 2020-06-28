@@ -62,6 +62,7 @@ public class Result<T> implements Serializable {
         Result<T> msg = new Result<>();
         msg.msg = "登录失效";
         msg.code = 401;
+        msg.result = (T) new ResultBean();
         return msg.putTimeStamp();
     }
 
@@ -69,6 +70,7 @@ public class Result<T> implements Serializable {
         Result<T> msg = new Result<>();
         msg.msg = "未登录";
         msg.code = 401;
+        msg.result = (T) new ResultBean();
         return msg.putTimeStamp();
     }
 

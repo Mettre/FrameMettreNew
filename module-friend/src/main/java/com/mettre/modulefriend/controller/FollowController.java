@@ -74,7 +74,7 @@ public class FollowController {
     @RequestMapping(value = "/loginEd/findUserList", method = RequestMethod.GET)
     @ApiOperation(value = "搜索用户")
     public Result<Object> findUserList(@RequestParam String findUserId) {
-        return Result.ok(followService.findUserList(findUserId));
+        return Result.ok(new ResultList(followService.findUserList(findUserId)));
     }
 
 }

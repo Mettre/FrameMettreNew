@@ -91,6 +91,7 @@ public class User {
         this.userId = RandomUtil.generateUserId();
         this.userName = RandomUtil.generateNickName();
         this.password = new BCryptPasswordEncoder().encode(userVM.getPassword().trim());
+        this.gender = GenderEnum.MAN;
         this.phone = userVM.getPhone();
         this.creationTime = new Date();
         this.updateTime = new Date();
