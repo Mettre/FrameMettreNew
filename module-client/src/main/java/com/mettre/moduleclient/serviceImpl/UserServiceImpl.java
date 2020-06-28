@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int insert(UserRegisterVM record) {
+    public AccessToken insert(UserRegisterVM record) {
 
         if (userMapper.selectByPhone(record.getPhone()) != null) {
             throw new CustomerException("该手机号已注册");
@@ -60,7 +60,10 @@ public class UserServiceImpl implements UserService {
 
         User user = new User(record);
         int type = userMapper.insert(user);
-        return ReturnType.ReturnType(type, "注册失败");
+        if (type < 1) {
+            throw new CustomerException("注册失败");
+        }
+        return JwtUtils.saveAccessToken(user, tokenExpireTime, saveLoginTime);
     }
 
     @Override

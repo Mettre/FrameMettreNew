@@ -26,9 +26,8 @@ public class LoginController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ApiOperation(value = "用户注册")
-    public Result<ResultBean> insert(@Valid @RequestBody UserRegisterVM userVM) {
-        userService.insert(userVM);
-        return Result.ok();
+    public Result<Object> insert(@Valid @RequestBody UserRegisterVM userVM) {
+        return Result.ok(userService.insert(userVM));
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)

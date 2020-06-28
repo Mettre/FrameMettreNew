@@ -11,7 +11,7 @@ public interface UserService {
 
     int deleteByPrimaryKey(String userId);
 
-    int insert(UserRegisterVM record);
+    AccessToken insert(UserRegisterVM record);
 
     int insertSelective(UserVM record);
 

@@ -3,6 +3,7 @@ package com.mettre.moduleclient.service;
 import cn.hutool.core.util.StrUtil;
 import com.mettre.moduleclient.inputPojo.SmsVM;
 import com.mettre.moduleclient.mapper.UserMapper;
+import com.mettre.moduleclient.pojo.SendMessageBean;
 import com.mettre.moduleclient.pojo.Sms;
 import com.mettre.modulecommon.enums.CustomerException;
 import com.mettre.modulecommon.pojo.User;
@@ -27,7 +28,7 @@ public class SmsService {
     private RedisService redisService;
 
 
-    public String sendMessage(SmsVM smsVM) {
+    public SendMessageBean sendMessage(SmsVM smsVM) {
         if (null == smsVM.getSmsType()) {
             throw new CustomerException("短信类型不能为空");
         }
@@ -49,7 +50,7 @@ public class SmsService {
         redisService.set(AssembleUtils.sendMessageUtils(sms.getSmsPhone(), smsVM.getSmsType()), code);
         redisService.expire(AssembleUtils.sendMessageUtils(sms.getSmsPhone(), smsVM.getSmsType()), 1 * 60);
         if (!StrUtil.isEmpty(code)) {
-            return code;
+            return new SendMessageBean(code);
         } else {
             throw new CustomerException("短信发送失败");
         }
