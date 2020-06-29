@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.modulefriend.pojo.FindUser;
 import com.mettre.modulefriend.pojo.Follow;
 import com.mettre.modulefriend.pojo.Friends;
+import com.mettre.modulefriend.pojo.RecommendBean;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +16,8 @@ public interface FollowMapper {
     int deleteByPrimaryKey(Long followId);
 
     int insert(Follow record);
+
+    int insertRecommended(RecommendBean record);
 
     int insertSelective(Follow record);
 
@@ -37,6 +40,8 @@ public interface FollowMapper {
     List<Follow> myFriendsPageVo(Page<Follow> page, @Param(value = "userId") String userId);
 
     List<Friends> myFriendsList(@Param(value = "userId") String userId);
+
+    List<RecommendBean> recommendedList(@Param(value = "userId") String userId);
 
     List<FindUser> findUserList(@Param(value = "userId") String userId, @Param(value = "findUserId") String findUserId);
 }

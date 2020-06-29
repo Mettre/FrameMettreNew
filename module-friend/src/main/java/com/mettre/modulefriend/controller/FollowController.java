@@ -77,4 +77,16 @@ public class FollowController {
         return Result.ok(new ResultList(followService.findUserList(findUserId)));
     }
 
+    @RequestMapping(value = "/loginEd/addRecommended", method = RequestMethod.GET)
+    @ApiOperation(value = "添加推荐用户")
+    public Result<ResultBean> addRecommended(@RequestParam String userId) {
+        followService.insertRecommended(userId);
+        return Result.ok();
+    }
+
+    @RequestMapping(value = "/loginEd/recommendedList", method = RequestMethod.GET)
+    @ApiOperation(value = "推荐用户")
+    public Result<Object> recommendedList() {
+        return Result.ok(new ResultList(followService.recommendedList()));
+    }
 }

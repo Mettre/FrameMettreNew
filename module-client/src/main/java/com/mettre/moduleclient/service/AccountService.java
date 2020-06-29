@@ -6,6 +6,7 @@ import com.mettre.moduleclient.inputPojo.AccountListPojoPage;
 import com.mettre.moduleclient.mapper.AccountMapper;
 import com.mettre.moduleclient.mapper.UserMapper;
 import com.mettre.moduleclient.pojo.Account;
+import com.mettre.moduleclient.pojo.AccountList;
 import com.mettre.moduleclient.pojo.AccountStatisticsBean;
 import com.mettre.moduleclient.pojo.MonthAccount;
 import com.mettre.modulecommon.base.ReturnType;
@@ -65,7 +66,11 @@ public class AccountService {
      * @return
      */
     public MonthAccount monthAccountList(Integer year, Integer month, String userId) {
-        List<Account> accountList = accountMapper.monthAccountList(year, month, userId);
+        List<AccountList> accountList = accountMapper.monthAccountList(year, month, userId);
+        for (int i = 0; i < accountList.size(); i++) {
+            accountList.set(i, new AccountList(accountList.get(i).getAccountBeans(), accountList.get(i).getRecordDay()));
+        }
+
         BigDecimal expenditure = accountMapper.monthAccountExpenditure(year, month, userId);
         BigDecimal income = accountMapper.monthAccountIncome(year, month, userId);
         return new MonthAccount(accountList, expenditure, income);

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.moduleclient.inputPojo.AccountListPojo;
 import com.mettre.moduleclient.inputPojo.AccountListPojoPage;
 import com.mettre.moduleclient.inputPojo.AccountPojo;
+import com.mettre.moduleclient.inputPojo.monthBillPojo;
 import com.mettre.moduleclient.pojo.Account;
 import com.mettre.moduleclient.pojo.AccountStatisticsBean;
 import com.mettre.moduleclient.pojo.MonthAccount;
@@ -61,9 +62,9 @@ public class AccountController {
 
     @ApiOperation(value = "统计月份记账记录")
     @PostMapping(value = "/loginEd/statisticsMonth")
-    public Result<Object> monthBill(@Valid @RequestParam Integer year, @Valid @RequestParam Integer month) {
+    public Result<Object> monthBill(@Valid @RequestBody monthBillPojo monthBillPojo) {
         String userId = SecurityContextStore.getContext().getUserId();
-        MonthAccount monthAccount = accountService.monthAccountList(year, month, userId);
+        MonthAccount monthAccount = accountService.monthAccountList(monthBillPojo.getYear(), monthBillPojo.getMonth(), userId);
         return Result.ok(monthAccount);
     }
 

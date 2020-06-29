@@ -12,7 +12,24 @@
         <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
+    <resultMap id="BaseResultMap2" type="com.mettre.moduleclient.pojo.AccountList">
+        <result column="record_day" property="recordDay" jdbcType="DATE"/>
+        <collection property="accountBeans" ofType="com.mettre.moduleclient.pojo.AccountBean">
+            <id column="id" property="id" jdbcType="INTEGER"/>
+            <result column="title" property="title" jdbcType="VARCHAR"/>
+            <result column="amount" property="amount" jdbcType="DECIMAL"/>
+            <result column="classification" property="classification" jdbcType="VARCHAR"/>
+            <result column="type" property="type" jdbcType="INTEGER"/>
+            <result column="crate_time" property="crateTime" jdbcType="TIMESTAMP"/>
+            <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+        </collection>
+    </resultMap>
+
     <sql id="Base_Column_List">
+    id, title, amount, classification, type, record_day, crate_time, modify_time
+  </sql>
+
+    <sql id="Base_Column_List2">
     id, title, amount, classification, type, record_day, crate_time, modify_time
   </sql>
 
@@ -197,7 +214,7 @@
     </select>
 
     <!--月份账单列表-->
-    <select id="monthAccountList" resultMap="BaseResultMap" parameterType="java.lang.String">
+    <select id="monthAccountList" resultMap="BaseResultMap2" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>
         from f_account
@@ -209,10 +226,11 @@
             <if test="year != null">
                 and year(record_day) = #{year,jdbcType=INTEGER}
             </if>
-            <if test="year != null">
+            <if test="month != null">
                 and month(record_day) = #{month,jdbcType=INTEGER}
             </if>
         </where>
+        order by record_day desc
     </select>
 
     <!--月份账目支出额-->

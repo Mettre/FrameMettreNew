@@ -19,6 +19,16 @@
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
+    <!--推荐用户-->
+    <resultMap id="BaseResultMap3" type="com.mettre.modulefriend.pojo.RecommendBean">
+        <id column="recommend_id" property="recommendId" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="head_avatar" property="headAvatar" jdbcType="VARCHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+        <result column="has_follow" property="hasFollow" jdbcType="BIT"/>
+    </resultMap>
+
     <!--我的粉丝列表  识别互关-->
     <resultMap id="BaseResultMap5" type="com.mettre.modulefriend.pojo.Follow">
         <id column="follow_id" property="followId" jdbcType="BIGINT"/>
@@ -57,6 +67,10 @@
 
     <sql id="Base_Column_List2">
     wc_follow.follow_id,wc_follow.user_id as my_userId,wc_user.user_id, wc_user.user_name,wc_user.head_avatar,wc_follow.update_time
+  </sql>
+
+    <sql id="Base_Column_List3">
+    f_recommend.recommend_id,f_recommend.creation_time,wc_user.user_id, wc_user.user_name,wc_user.head_avatar,if(b.follow_id is NULL,0,1) AS has_follow
   </sql>
 
     <!--我的好友列表-->
@@ -250,6 +264,28 @@
         and wc_follow2.status = true
         where wc_follow.user_id = #{userId,jdbcType=VARCHAR}
         and wc_follow.status = true
+    </select>
+
+
+    <!--添加推荐用户-->
+    <insert id="insertRecommended" parameterType="com.mettre.modulefriend.pojo.RecommendBean">
+    insert into f_recommend (recommend_id, user_id, creation_time)
+    values (#{recommendId,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR},#{creationTime,jdbcType=TIMESTAMP})
+  </insert>
+
+
+    <!--推荐用户-->
+    <select id="recommendedList" resultMap="BaseResultMap3" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List3"/>
+        FROM f_recommend
+        left join wc_user
+        on f_recommend.user_id = wc_user.user_id
+        left join wc_follow as b
+        on b.followed_user = f_recommend.user_id
+        and b.user_id =#{userId,jdbcType=VARCHAR}
+        and b.status = true
+        where f_recommend.user_id !=#{userId,jdbcType=VARCHAR}
     </select>
 
 

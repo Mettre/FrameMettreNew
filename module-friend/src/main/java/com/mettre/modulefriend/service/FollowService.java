@@ -10,6 +10,7 @@ import com.mettre.modulefriend.mapper.FollowMapper;
 import com.mettre.modulefriend.pojo.FindUser;
 import com.mettre.modulefriend.pojo.Follow;
 import com.mettre.modulefriend.pojo.Friends;
+import com.mettre.modulefriend.pojo.RecommendBean;
 import com.mettre.modulefriend.pojoVM.FollowVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,10 +31,13 @@ public class FollowService {
     public int insert(FollowVM followVM) {
         String userId = SecurityContextStore.getContext().getUserId();
         int type = 0;
+        if (followVM.getFollowedUser() == userId) {
+            throw new CustomerException("不能关注自己");
+        }
         Follow follow = followMapper.findWhetherFollow(new Follow(followVM, userId));
         if (follow != null) {
             if (follow.getStatus()) {
-                throw new CustomerException("已经是关注关系");
+                throw new CustomerException("已经关注了该用户");
             }
             type = followMapper.addFollow(new Follow(followVM, userId));
         } else {
@@ -43,7 +47,21 @@ public class FollowService {
         }
 
         return ReturnType.ReturnType(type, "关注失败");
+    }
 
+    /**
+     * 添加推荐用户
+     *
+     * @return
+     */
+    public int insertRecommended(String userId2) {
+        String userId = SecurityContextStore.getContext().getUserId();
+        int type = 0;
+        userRpcFeign.findUserInfo(userId);
+        userRpcFeign.findUserInfo(userId2);
+
+        type = followMapper.insertRecommended(new RecommendBean(userId2));
+        return ReturnType.ReturnType(type, "添加失败");
     }
 
     public int cancelFollow(FollowVM followVM) {
@@ -91,6 +109,12 @@ public class FollowService {
 
     public List<Friends> myFriendsList(String userId) {
         List<Friends> followList = (List<Friends>) followMapper.myFriendsList(userId);
+        return followList;
+    }
+
+    public List<RecommendBean> recommendedList() {
+        String userId = SecurityContextStore.getContext().getUserId();
+        List<RecommendBean> followList = (List<RecommendBean>) followMapper.recommendedList(userId);
         return followList;
     }
 

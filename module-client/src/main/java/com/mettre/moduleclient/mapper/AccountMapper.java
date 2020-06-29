@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.moduleclient.inputPojo.AccountListPojo;
 import com.mettre.moduleclient.inputPojo.AccountListPojoPage;
 import com.mettre.moduleclient.pojo.Account;
+import com.mettre.moduleclient.pojo.AccountList;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +30,7 @@ public interface AccountMapper {
 
     BigDecimal monthAccountIncome(@Param(value = "year") Integer year, @Param(value = "month") Integer month, @Param(value = "userId") String userId);
 
-    List<Account> monthAccountList(@Param(value = "year") Integer year, @Param(value = "month") Integer month, @Param(value = "userId") String userId);
+    List<AccountList> monthAccountList(@Param(value = "year") Integer year, @Param(value = "month") Integer month, @Param(value = "userId") String userId);
 
     List<Account> searchAccountList(@Param(value = "accountListPojo") AccountListPojo accountListPojo, @Param(value = "userId") String userId);
 
