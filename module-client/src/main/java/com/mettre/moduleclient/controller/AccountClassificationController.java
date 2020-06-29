@@ -24,14 +24,14 @@ public class AccountClassificationController {
     AccountClassificationService accountClassificationService;
 
     @ApiOperation(value = "添加记账分类")
-    @PostMapping(value = "/accountClassification/add")
+    @PostMapping(value = "/add")
     public Result<ResultBean> addClassification(@Valid @RequestBody AccountClassification accountClassification) {
         accountClassificationService.insert(accountClassification);
         return Result.ok();
     }
 
     @ApiOperation(value = "修改记账分类")
-    @PostMapping(value = "/accountClassification/update")
+    @PostMapping(value = "/update")
     public Result<ResultBean> updateClassification(@Valid @RequestBody AccountClassification accountClassification) {
         accountClassificationService.updateByPrimaryKey(accountClassification);
         return Result.ok();
