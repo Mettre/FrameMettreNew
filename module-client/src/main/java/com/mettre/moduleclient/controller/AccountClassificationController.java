@@ -1,17 +1,17 @@
 package com.mettre.moduleclient.controller;
 
 
+import com.mettre.moduleclient.inputPojo.AccountListPojo;
 import com.mettre.moduleclient.pojo.AccountClassification;
 import com.mettre.moduleclient.service.AccountClassificationService;
 import com.mettre.modulecommon.base.Result;
 import com.mettre.modulecommon.base.ResultBean;
+import com.mettre.modulecommon.base.ResultList;
+import com.mettre.modulecommon.jwt.SecurityContextStore;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -33,9 +33,14 @@ public class AccountClassificationController {
     @ApiOperation(value = "修改记账分类")
     @PostMapping(value = "/update")
     public Result<ResultBean> updateClassification(@Valid @RequestBody AccountClassification accountClassification) {
-        accountClassificationService.updateByPrimaryKey(accountClassification);
+        accountClassificationService.updateByPrimaryKeySelective(accountClassification);
         return Result.ok();
     }
 
+    @ApiOperation(value = "记账分类列表")
+    @GetMapping(value = "/list/{type}")
+    public Result<Object> searchAccountList(@PathVariable Integer type) {
+        return Result.ok(new ResultList(accountClassificationService.accountClassificationList(type)));
+    }
 
 }

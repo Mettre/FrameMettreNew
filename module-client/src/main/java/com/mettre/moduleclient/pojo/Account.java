@@ -28,7 +28,7 @@ public class Account {
 
     private Date modifyTime;
 
-    private Integer userId;
+    private String userId;
 
     public Account() {
 
@@ -39,7 +39,7 @@ public class Account {
      *
      * @param accountPojo
      */
-    public Account(AccountPojo accountPojo, Integer userId) {
+    public Account(AccountPojo accountPojo, String userId) {
         this.title = accountPojo.getTitle();
         this.userId = userId;
         this.amount = accountPojo.getAmount();
@@ -54,7 +54,7 @@ public class Account {
      *
      * @param accountPojo
      */
-    public Account(AccountPojo accountPojo, Integer userId, Boolean modify) {
+    public Account(AccountPojo accountPojo, String userId, Boolean modify) {
         this.id = accountPojo.getId();
         this.userId = userId;
         this.title = accountPojo.getTitle();

@@ -1,0 +1,13 @@
+spring:
+  application:
+      name: module-register
+
+  profiles:
+      active: pro
+
+server:
+  port: 1111
+
+  profiles:
+      active: pro
+

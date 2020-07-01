@@ -18,7 +18,10 @@
 
     <modules>
         <module>module-gateway2</module>
+        <module>module-client</module>
         <module>module-clientb</module>
+        <module>module-friend</module>
+        <module>module-register</module>
     </modules>
 
     <properties>

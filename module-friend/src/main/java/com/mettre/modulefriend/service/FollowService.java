@@ -12,6 +12,8 @@ import com.mettre.modulefriend.pojo.Follow;
 import com.mettre.modulefriend.pojo.Friends;
 import com.mettre.modulefriend.pojo.RecommendBean;
 import com.mettre.modulefriend.pojoVM.FollowVM;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,8 @@ import java.util.List;
 @Service
 @Transactional
 public class FollowService {
+
+    Logger logger = LoggerFactory.getLogger(FollowService.class);
 
     @Autowired
     public FollowMapper followMapper;
@@ -41,8 +45,11 @@ public class FollowService {
             }
             type = followMapper.addFollow(new Follow(followVM, userId));
         } else {
+            logger.error("加载第一个");
             userRpcFeign.findUserInfo(userId);
+            logger.error("加载第二个");
             userRpcFeign.findUserInfo(followVM.getFollowedUser());
+            logger.error("加载第三个");
             type = followMapper.insert(new Follow(followVM, userId));
         }
 
