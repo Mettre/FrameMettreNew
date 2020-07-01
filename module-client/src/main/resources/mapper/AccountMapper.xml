@@ -230,7 +230,7 @@
                 and month(record_day) = #{month,jdbcType=INTEGER}
             </if>
         </where>
-        order by record_day desc
+        order by record_day desc ,crate_time desc
     </select>
 
     <!--月份账目支出额-->

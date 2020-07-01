@@ -3,6 +3,8 @@ package com.mettre.moduleclient.mapper;
 import com.mettre.moduleclient.pojo.AccountClassification;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AccountClassificationMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +18,7 @@ public interface AccountClassificationMapper {
     int updateByPrimaryKeySelective(AccountClassification record);
 
     int updateByPrimaryKey(AccountClassification record);
+
+    List<AccountClassification> accountClassificationList(Integer type);
+
 }

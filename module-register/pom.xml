@@ -36,6 +36,7 @@
 
 
     <build>
+        <finalName>module-register</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

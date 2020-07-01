@@ -24,7 +24,6 @@ spring:
     #空闲连接最小空闲时间
     minEvictableIdleTimeMillis: 300000
 
-
 eureka:
   instance:
     prefer-ip-address: true

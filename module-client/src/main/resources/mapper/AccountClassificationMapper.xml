@@ -76,4 +76,11 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+    <select id="accountClassificationList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from f_account_classification
+        where classification_type = #{type,jdbcType=INTEGER}
+    </select>
+
 </mapper>

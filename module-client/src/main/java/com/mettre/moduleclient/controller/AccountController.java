@@ -34,7 +34,7 @@ public class AccountController {
     @PostMapping(value = "/loginEd/add")
     public Result<ResultBean> addBookkeeping(@Valid @RequestBody AccountPojo accountPojo) {
         String userId = SecurityContextStore.getContext().getUserId();
-        accountService.insert(new Account(accountPojo, Integer.parseInt(userId)));
+        accountService.insert(new Account(accountPojo, userId));
         return Result.ok();
     }
 
