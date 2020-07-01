@@ -60,7 +60,7 @@
     </dependencyManagement>
 
     <build>
-        <finalName>module-clientb</finalName>
+        <finalName>module-client-b</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
