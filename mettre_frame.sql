@@ -29,7 +29,7 @@ CREATE TABLE `f_account`  (
   `type` int(2) NOT NULL COMMENT '支出：0  收入：1',
   `record_day` date NOT NULL COMMENT '日期',
   `crate_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '记录插入日期',
-  `modify_time` timestamp DEFAULT NULL COMMENT '修改时间',
+  `modify_time` datetime DEFAULT NULL COMMENT '修改时间',
   `user_id` bigint(20) NOT NULL COMMENT '用户id',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1000056 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Compact;

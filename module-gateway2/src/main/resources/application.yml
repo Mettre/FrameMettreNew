@@ -8,7 +8,6 @@ spring:
   profiles:
       active: pro
 
-
 zuul:
     host:
         max-per-route-connections: 20000
@@ -18,8 +17,10 @@ zuul:
     routes:
           module-client:
                 path: /module-client/**
-          account:
-                path: /account/**
+          module-client-b:
+                path: /module-client-b/**
+          module-friend:
+                path: / module-friend/**
 
 
 hystrix:

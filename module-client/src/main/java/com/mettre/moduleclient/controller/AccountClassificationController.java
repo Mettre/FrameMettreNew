@@ -1,13 +1,10 @@
 package com.mettre.moduleclient.controller;
 
-
-import com.mettre.moduleclient.inputPojo.AccountListPojo;
 import com.mettre.moduleclient.pojo.AccountClassification;
 import com.mettre.moduleclient.service.AccountClassificationService;
 import com.mettre.modulecommon.base.Result;
 import com.mettre.modulecommon.base.ResultBean;
 import com.mettre.modulecommon.base.ResultList;
-import com.mettre.modulecommon.jwt.SecurityContextStore;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,15 @@ public class AccountClassificationController {
     public Result<ResultBean> updateClassification(@Valid @RequestBody AccountClassification accountClassification) {
         accountClassificationService.updateByPrimaryKeySelective(accountClassification);
         return Result.ok();
+    }
+
+    /**
+     * 访问首页
+     */
+    @ApiOperation(value = "访问首页")
+    @GetMapping("/index")
+    public String index() {
+        return "hello SpringBoot！";
     }
 
     @ApiOperation(value = "记账分类列表")

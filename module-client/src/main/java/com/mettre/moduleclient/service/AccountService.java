@@ -10,6 +10,8 @@ import com.mettre.moduleclient.pojo.AccountList;
 import com.mettre.moduleclient.pojo.AccountStatisticsBean;
 import com.mettre.moduleclient.pojo.MonthAccount;
 import com.mettre.modulecommon.base.ReturnType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,8 @@ import java.util.List;
 @Service
 @Transactional
 public class AccountService {
+
+    Logger logger = LoggerFactory.getLogger(AccountService.class);
 
     @Autowired
     public UserMapper userMapper;
@@ -35,6 +39,8 @@ public class AccountService {
 
 
     public int insert(Account account) {
+        logger.error("解金澎recordDay  **" + account.getRecordDay());
+        logger.error("解金澎crateTime  **" + account.getCrateTime());
         int type = accountMapper.insert(account);
         return ReturnType.ReturnType(type, "添加失败");
     }

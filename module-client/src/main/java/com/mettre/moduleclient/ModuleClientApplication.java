@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @EnableEurekaClient
 @SpringBootApplication
@@ -21,6 +22,7 @@ import java.util.List;
 public class ModuleClientApplication {
 
     public static void main(String[] args) {
+        Locale.setDefault(Locale.CHINA);
         SpringApplication.run(ModuleClientApplication.class, args);
     }
 
