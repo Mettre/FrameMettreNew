@@ -8,6 +8,10 @@ spring:
   profiles:
     active: test
 
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
 
   # token过期时间（分钟）
   tokenExpireTime: 4320
