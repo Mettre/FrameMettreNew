@@ -6,11 +6,14 @@ import com.mettre.moduleclient.inputPojo.AccountListPojoPage;
 import com.mettre.moduleclient.inputPojo.AccountPojo;
 import com.mettre.moduleclient.inputPojo.monthBillPojo;
 import com.mettre.moduleclient.pojo.Account;
+import com.mettre.moduleclient.pojo.AccountClassification;
 import com.mettre.moduleclient.pojo.AccountStatisticsBean;
 import com.mettre.moduleclient.pojo.MonthAccount;
+import com.mettre.moduleclient.service.AccountClassificationService;
 import com.mettre.moduleclient.service.AccountService;
 import com.mettre.modulecommon.base.Result;
 import com.mettre.modulecommon.base.ResultList;
+import com.mettre.modulecommon.enums.CustomerException;
 import com.mettre.modulecommon.jwt.SecurityContextStore;
 import com.mettre.modulecommon.base.ResultBean;
 import io.swagger.annotations.Api;
@@ -30,10 +33,18 @@ public class AccountController {
     @Autowired
     public AccountService accountService;
 
+    @Autowired
+    public AccountClassificationService accountClassificationService;
+
     @ApiOperation(value = "添加记账")
     @PostMapping(value = "/loginEd/add")
     public Result<ResultBean> addBookkeeping(@Valid @RequestBody AccountPojo accountPojo) {
         String userId = SecurityContextStore.getContext().getUserId();
+        AccountClassification accountClassification = accountClassificationService.selectByPrimaryKey(accountPojo.getClassification());
+
+        if (accountClassification == null) {
+            throw new CustomerException("分类错误");
+        }
         accountService.insert(new Account(accountPojo, userId));
         return Result.ok();
     }

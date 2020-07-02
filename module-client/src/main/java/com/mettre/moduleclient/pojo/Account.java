@@ -23,7 +23,7 @@ public class Account {
 
     private BigDecimal amount;
 
-    private String classification;
+    private Integer classification;
 
     private Integer type;
 

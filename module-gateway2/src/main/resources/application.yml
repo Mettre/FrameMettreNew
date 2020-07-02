@@ -6,7 +6,7 @@ spring:
       name: module-gateway
 
   profiles:
-      active: pro
+      active: test
 
 zuul:
     host:

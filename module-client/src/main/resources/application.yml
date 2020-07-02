@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: pro
+    active: test
 
   application:
     name: module-client

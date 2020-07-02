@@ -6,7 +6,7 @@ spring:
     name: module-client-b
 
   profiles:
-    active: pro
+    active: test
 
 
   # token过期时间（分钟）

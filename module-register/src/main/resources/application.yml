@@ -8,6 +8,3 @@ spring:
 server:
   port: 1111
 
-  profiles:
-      active: pro
-
