@@ -1,6 +1,7 @@
 package com.mettre.modulecommon.pojo;
 
 import cn.hutool.core.util.StrUtil;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mettre.modulecommon.enum_.GenderEnum;
 import com.mettre.modulecommon.pojoVm.ForgetPasswordVM;
 import com.mettre.modulecommon.pojoVm.ModifyPasswordVM;
@@ -8,6 +9,7 @@ import com.mettre.modulecommon.pojoVm.UserRegisterVM;
 import com.mettre.modulecommon.pojoVm.UserVM;
 import com.mettre.modulecommon.util.RandomUtil;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Date;
@@ -36,6 +38,8 @@ public class User {
 
     private String backgroundWall;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date creationTime;
 
     private Date updateTime;

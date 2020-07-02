@@ -33,6 +33,7 @@ public class ModuleClientbApplication {
         registrationBean.setFilter(new JwtFilter());
         List<String> urlPatterns = new ArrayList<String>();
         urlPatterns.add("/loginEd/*");
+        urlPatterns.add("/feedback/loginEd/*");
         registrationBean.setUrlPatterns(urlPatterns);
         return registrationBean;
     }
