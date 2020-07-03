@@ -15,22 +15,13 @@ public class AccountClassificationService {
     @Autowired
     AccountClassificationMapper accountClassificationMapper;
 
-    public int deleteByPrimaryKey(Integer id) {
-        return 0;
-    }
-
     public int insert(AccountClassification accountClassification) {
         return accountClassificationMapper.insert(new AccountClassification(accountClassification, true));
-    }
-
-    public int insertSelective(AccountClassification record) {
-        return 0;
     }
 
     public AccountClassification selectByPrimaryKey(Integer id) {
         return accountClassificationMapper.selectByPrimaryKey(id);
     }
-
 
     public List<AccountClassification> accountClassificationList(Integer type) {
         List<AccountClassification> accountList = (List<AccountClassification>) accountClassificationMapper.accountClassificationList(type);
@@ -39,9 +30,5 @@ public class AccountClassificationService {
 
     public int updateByPrimaryKeySelective(AccountClassification accountClassification) {
         return accountClassificationMapper.updateByPrimaryKeySelective(new AccountClassification(accountClassification, false));
-    }
-
-    public int updateByPrimaryKey(AccountClassification record) {
-        return 0;
     }
 }

@@ -45,7 +45,7 @@ public class UploadController {
     @ApiOperation(value = "本地上传文件")
     public Result<Object> uploadImg(@RequestParam("file") MultipartFile multipartFile) {
 
-        return new Result().result((new ResultBean("" + fileService.insert(multipartFile))));
+        return new Result().ok(new ResultBean("" + fileService.insert(multipartFile)));
     }
 
     @RequestMapping(value = "/qiniu/upload", method = RequestMethod.POST)
@@ -75,6 +75,6 @@ public class UploadController {
             throw new CustomerException(e.toString());
         }
 
-        return new Result().result(new ResultBean(imagePath));
+        return new Result().ok(new ResultBean(imagePath));
     }
 }

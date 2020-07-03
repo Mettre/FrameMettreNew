@@ -3,13 +3,13 @@ package com.mettre.moduleclient.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mettre.moduleclient.inputPojo.AccountListPojo;
 import com.mettre.moduleclient.inputPojo.AccountListPojoPage;
+import com.mettre.moduleclient.inputPojo.AccountPojo;
 import com.mettre.moduleclient.mapper.AccountMapper;
 import com.mettre.moduleclient.mapper.UserMapper;
-import com.mettre.moduleclient.pojo.Account;
-import com.mettre.moduleclient.pojo.AccountList;
-import com.mettre.moduleclient.pojo.AccountStatisticsBean;
-import com.mettre.moduleclient.pojo.MonthAccount;
+import com.mettre.moduleclient.pojo.*;
 import com.mettre.modulecommon.base.ReturnType;
+import com.mettre.modulecommon.enums.CustomerException;
+import com.mettre.modulecommon.jwt.SecurityContextStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,9 @@ public class AccountService {
     @Autowired
     public AccountMapper accountMapper;
 
+    @Autowired
+    public AccountClassificationService accountClassificationService;
+
 
     public int deleteByPrimaryKey(Integer id) {
         int type = accountMapper.deleteByPrimaryKey(id);
@@ -38,31 +41,15 @@ public class AccountService {
     }
 
 
-    public int insert(Account account) {
-        logger.error("解金澎recordDay  **" + account.getRecordDay());
-        logger.error("解金澎crateTime  **" + account.getCrateTime());
-        int type = accountMapper.insert(account);
+    public int insert(AccountPojo accountPojo) {
+        String userId = SecurityContextStore.getContext().getUserId();
+        AccountClassification accountClassification = accountClassificationService.selectByPrimaryKey(accountPojo.getClassification());
+        if (accountClassification == null) {
+            throw new CustomerException("分类错误");
+        }
+        int type = accountMapper.insert(new Account(accountPojo, userId));
         return ReturnType.ReturnType(type, "添加失败");
     }
-
-    public int insertSelective(Account record) {
-        return 0;
-    }
-
-    public Account selectByPrimaryKey(Integer id) {
-        return null;
-    }
-
-
-    public int updateByPrimaryKeySelective(Account record) {
-        return 0;
-    }
-
-
-    public int updateByPrimaryKey(Account record) {
-        return 0;
-    }
-
 
     /**
      * 统计月份记账金额情况

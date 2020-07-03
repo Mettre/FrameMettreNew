@@ -33,19 +33,11 @@ public class AccountController {
     @Autowired
     public AccountService accountService;
 
-    @Autowired
-    public AccountClassificationService accountClassificationService;
-
     @ApiOperation(value = "添加记账")
     @PostMapping(value = "/loginEd/add")
     public Result<ResultBean> addBookkeeping(@Valid @RequestBody AccountPojo accountPojo) {
-        String userId = SecurityContextStore.getContext().getUserId();
-        AccountClassification accountClassification = accountClassificationService.selectByPrimaryKey(accountPojo.getClassification());
 
-        if (accountClassification == null) {
-            throw new CustomerException("分类错误");
-        }
-        accountService.insert(new Account(accountPojo, userId));
+        accountService.insert(accountPojo);
         return Result.ok();
     }
 

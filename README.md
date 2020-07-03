@@ -82,6 +82,29 @@ jenkins
 
 elasticsearch 实战
   https://mp.weixin.qq.com/s/onbKTlCCw8rUlln-X9WW7w
+  
+docker网段跟linux ip不一致导致微服务注册中心访问不到其他子服务  注册中心里eureka defaultZone填写服务器ip替代localhost
+docker容器时间比服务器时间晚8小时 （可能阿里云服务器时区设置不对、docker跟服务器时区不一致、mysql时区不一致、docker容器时区不一致）
+docker容器时区不一致时,①dockerfile编写镜像的时候设置跟宿主机时区一致  --（ENV TZ=Asia/Shanghai
+                                                              RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone） 
+                    ②容器run时候设置跟宿主机时区一直localtime
+
+建议LocalDateTime 替代 Date 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")  入参格式化
+    @JsonFormat(pattern = "yyyy-MM-dd")      出参格式化
+
+多模块打包 --> 麻烦 --> 便捷
+
+
+Springboot上传文件  https://blog.csdn.net/wqh8522/article/details/78971260    
+    
+nginx部署文件服务器    
+     docker部署nginx文件服务器 -- https://blog.csdn.net/cjbfzxz/article/details/106652169
+     容器发布时需要run -v  文件访问需要将主机文件路径映射到docker容器
+       
+访问windows本地文件  配置pringboot静态资源路径  （例http://localhost:8762/module-client-b/upload_image/80437339440025600.jpg）
+      resources ： static-locations: file:${spring.img.location}
+      --- https://blog.csdn.net/zsl129/article/details/52906762
 
 mongodb
 

@@ -34,19 +34,21 @@ public class AccountClassificationController {
         return Result.ok();
     }
 
-    /**
-     * 访问首页
-     */
-    @ApiOperation(value = "访问首页")
-    @GetMapping("/index")
-    public String index() {
-        return "hello SpringBoot！";
-    }
 
     @ApiOperation(value = "记账分类列表")
     @GetMapping(value = "/list/{type}")
     public Result<Object> searchAccountList(@PathVariable Integer type) {
         return Result.ok(new ResultList(accountClassificationService.accountClassificationList(type)));
     }
+
+    /**
+     * 访问首页
+     */
+    @ApiOperation(value = "访问首页测试联通")
+    @GetMapping("/index")
+    public String index() {
+        return "hello SpringBoot！";
+    }
+
 
 }

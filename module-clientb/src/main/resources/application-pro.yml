@@ -24,12 +24,11 @@ spring:
     #空闲连接最小空闲时间
     minEvictableIdleTimeMillis: 300000
 
-
   resources:
     static-locations: file:${spring.img.location}
 
   img:
-    location: /usr/java/upload/
+    location: /data/docker_v/nginx/www/
 
 
 eureka:

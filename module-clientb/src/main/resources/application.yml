@@ -13,6 +13,12 @@ spring:
     time-zone: GMT+8
 
 
+  # 文件大小上传配置
+  multipart:
+    max-file-size: 2
+    max-request-size: 5
+
+
   # token过期时间（分钟）
   tokenExpireTime: 4320
   # 用户选择保存登录状态对应token过期时间（天）

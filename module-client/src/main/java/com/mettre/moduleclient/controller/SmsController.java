@@ -21,7 +21,6 @@ public class SmsController {
 
     private static final Logger logger = LoggerFactory.getLogger(SmsController.class);
 
-
     @Autowired
     public SmsService smsService;
 
