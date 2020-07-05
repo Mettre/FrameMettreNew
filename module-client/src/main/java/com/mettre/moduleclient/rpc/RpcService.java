@@ -30,8 +30,10 @@ public class RpcService {
         if (user == null) {
             logger.error("用户信息获取失败");
             throw new CustomerException("用户信息获取失败");
+//            return Result.error();
         }
         logger.error("用户信息获取往下走");
+
         return Result.ok(new User(user));
     }
 }

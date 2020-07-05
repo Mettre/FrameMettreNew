@@ -33,8 +33,7 @@ public class VisitorService {
     public int insert(Visitor record) {
         int type = 0;
         if (!record.getUserId().equals(record.getVisitorsUser())) {
-            userFeign.findUserInfo(record.getUserId());
-            userFeign.findUserInfo(record.getVisitorsUser());
+            ReturnType.ReturnType(userFeign.findUserInfo(record.getUserId()), userFeign.findUserInfo(record.getVisitorsUser()));
             type = visitorMapper.insert(record);
         }
         return ReturnType.ReturnType(type, "访客记录插入失败");

@@ -2,9 +2,11 @@ package com.mettre.modulefriend.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mettre.modulecommon.base.Result;
 import com.mettre.modulecommon.base.ReturnType;
 import com.mettre.modulecommon.enums.CustomerException;
 import com.mettre.modulecommon.jwt.SecurityContextStore;
+import com.mettre.modulecommon.pojo.User;
 import com.mettre.modulefriend.feign.UserRpcService;
 import com.mettre.modulefriend.mapper.FollowMapper;
 import com.mettre.modulefriend.pojo.FindUser;
@@ -39,17 +41,15 @@ public class FollowService {
             throw new CustomerException("不能关注自己");
         }
         Follow follow = followMapper.findWhetherFollow(new Follow(followVM, userId));
+
         if (follow != null) {
             if (follow.getStatus()) {
                 throw new CustomerException("已经关注了该用户");
             }
             type = followMapper.addFollow(new Follow(followVM, userId));
         } else {
-            logger.error("加载第一个");
-            userRpcFeign.findUserInfo(userId);
-            logger.error("加载第二个");
-            userRpcFeign.findUserInfo(followVM.getFollowedUser());
-            logger.error("加载第三个");
+            ReturnType.ReturnType(userRpcFeign.findUserInfo(userId)
+                    , userRpcFeign.findUserInfo(followVM.getFollowedUser()));
             type = followMapper.insert(new Follow(followVM, userId));
         }
 
@@ -63,11 +63,8 @@ public class FollowService {
      */
     public int insertRecommended(String userId2) {
         String userId = SecurityContextStore.getContext().getUserId();
-        int type = 0;
-        userRpcFeign.findUserInfo(userId);
-        userRpcFeign.findUserInfo(userId2);
-
-        type = followMapper.insertRecommended(new RecommendBean(userId2));
+        ReturnType.ReturnType(userRpcFeign.findUserInfo(userId), userRpcFeign.findUserInfo(userId2));
+        int type = followMapper.insertRecommended(new RecommendBean(userId2));
         return ReturnType.ReturnType(type, "添加失败");
     }
 

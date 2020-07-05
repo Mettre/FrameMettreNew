@@ -1,6 +1,7 @@
 package com.mettre.modulefriend.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mettre.modulecommon.base.ReturnType;
 import com.mettre.modulecommon.enums.CustomerException;
 import com.mettre.modulecommon.jwt.SecurityContextStore;
 import com.mettre.modulefriend.feign.UserRpcService;
@@ -31,7 +32,7 @@ public class MomentsService {
 
     public int insert(MomentsVM momentsVM) {
         String userId = SecurityContextStore.getContext().getUserId();
-        userFeign.findUserInfo(userId);
+        ReturnType.ReturnType(userFeign.findUserInfo(userId));
         return momentsMapper.insert(new Moments(momentsVM, userId));
     }
 

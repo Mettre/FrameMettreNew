@@ -35,7 +35,7 @@ public class FeedbackService {
 
     public int insert(FeedbackVM feedbackVM) {
         String userId = SecurityContextStore.getContext().getUserId();
-        userRpcFeign.findUserInfo(userId);
+        ReturnType.ReturnType(userRpcFeign.findUserInfo(userId));
         int type = feedbackMapper.insert(new Feedback(feedbackVM, StateEnum.SUBMITTED, userId));
         return ReturnType.ReturnType(type, "插入失败");
     }

@@ -2,6 +2,7 @@ package com.mettre.moduleclientb.controller;
 
 import com.mettre.moduleclientb.feign.UserRpcService;
 import com.mettre.modulecommon.base.Result;
+import com.mettre.modulecommon.base.ReturnType;
 import com.mettre.modulecommon.jwt.SecurityContextStore;
 import com.mettre.modulecommon.pojo.User;
 import com.mettre.modulecommon.resultUtil.ResultUtils;
@@ -23,8 +24,7 @@ public class ReceivingController {
     @ApiOperation(value = "添加收货地址")
     public Result<Object> insert() {
         String userId = SecurityContextStore.getContext().getUserId();
-        Result<User> result = userFeign.findUserInfo(userId);
-        if (ResultUtils.getInfoSuccess(result));
-        return Result.ok(result.getResult());
+        ReturnType.ReturnType(userFeign.findUserInfo(userId));
+        return Result.ok();
     }
 }
