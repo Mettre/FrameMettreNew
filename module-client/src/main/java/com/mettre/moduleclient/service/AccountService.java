@@ -63,10 +63,8 @@ public class AccountService {
         for (int i = 0; i < accountList.size(); i++) {
             accountList.set(i, new AccountList(accountList.get(i).getAccountBeans(), accountList.get(i).getRecordDay()));
         }
-
-        BigDecimal expenditure = accountMapper.monthAccountExpenditure(year, month, userId);
-        BigDecimal income = accountMapper.monthAccountIncome(year, month, userId);
-        return new MonthAccount(accountList, expenditure, income);
+        MonthAccount expenditure = accountMapper.monthAccountExpenditure2(year, month, userId);
+        return new MonthAccount(accountList, expenditure);
     }
 
     public List<Account> searchAccountList(AccountListPojo accountListPojo, String userId) {
@@ -95,8 +93,7 @@ public class AccountService {
      * @return
      */
     public AccountStatisticsBean accountStatisticsBean(String userId) {
-        Integer totalAccountNum = accountMapper.totalAccountNum(userId);
-        Integer totalAccountDay = accountMapper.totalAccountDay(userId);
-        return new AccountStatisticsBean(totalAccountNum, totalAccountDay);
+        AccountStatisticsBean accountStatisticsBean = accountMapper.totalAccountDay(userId);
+        return accountStatisticsBean;
     }
 }

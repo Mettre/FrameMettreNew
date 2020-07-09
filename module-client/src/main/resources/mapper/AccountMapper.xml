@@ -25,6 +25,16 @@
         </collection>
     </resultMap>
 
+    <resultMap id="BaseResultMap33" type="com.mettre.moduleclient.pojo.AccountStatisticsBean">
+        <result column="totalAccountNum" property="totalAccountNum" jdbcType="INTEGER"/>
+        <result column="totalAccountDay" property="totalAccountDay" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMap44" type="com.mettre.moduleclient.pojo.MonthAccount">
+        <result column="expenditure" property="expenditure" jdbcType="DECIMAL"/>
+        <result column="income" property="income" jdbcType="DECIMAL"/>
+    </resultMap>
+
     <sql id="Base_Column_List">
     id, title, amount, classification, type, record_day, crate_time, modify_time
   </sql>
@@ -233,15 +243,11 @@
         order by record_day desc ,crate_time desc
     </select>
 
-    <!--月份账目支出额-->
-    <select id="monthAccountExpenditure" resultType="java.math.BigDecimal" parameterType="java.lang.String">
+    <!--月份账目支出额/收入额-->
+    <select id="monthAccountExpenditure2" resultMap="BaseResultMap44" parameterType="java.lang.String">
         select
-        <if test="month != null">
-            sum(case month(record_day)
-            when #{month,jdbcType=INTEGER}
-            then amount
-            else 0 end ) as expenditure
-        </if>
+        sum(case when type =0 then amount else 0 end) as expenditure,
+        sum(case when type =1 then amount else 0 end) as income
         from f_account
         <where>
             1=1
@@ -251,31 +257,12 @@
             <if test="year != null">
                 and YEAR(record_day) = #{year,jdbcType=INTEGER}
             </if>
-            and type = 0
+            <if test="month != null">
+                and MONTH(record_day) = #{month,jdbcType=INTEGER}
+            </if>
         </where>
     </select>
 
-    <!--月度账单收入额-->
-    <select id="monthAccountIncome" resultType="java.math.BigDecimal" parameterType="java.lang.String">
-        select
-        <if test="month != null">
-            sum(case month(record_day)
-            when #{month,jdbcType=INTEGER}
-            then amount
-            else 0 end ) as income
-        </if>
-        from f_account
-        <where>
-            1=1
-            <if test="userId != null">
-                and user_id = #{userId,jdbcType=VARCHAR}
-            </if>
-            <if test="year != null">
-                and YEAR(record_day) = #{year,jdbcType=INTEGER}
-            </if>
-            and type = 1
-        </where>
-    </select>
 
     <!--推荐标题排序-->
     <select id="recommendTitleList" resultType="java.lang.String" parameterType="java.lang.String">
@@ -293,23 +280,11 @@
         order by count desc
     </select>
 
-    <!--统计记账总信息 记账总天数-->
-    <select id="totalAccountDay" resultType="java.lang.Integer" parameterType="java.lang.String">
-        select count(*) from
-        (select count(*) num from f_account
-        <where>
-            1=1
-            <if test="userId != null">
-                and user_id = #{userId,jdbcType=VARCHAR}
-            </if>
-        </where>
-        group by record_day) as A
-    </select>
-
-    <!--统计记账总信息 记账总条数-->
-    <select id="totalAccountNum" resultType="java.lang.Integer" parameterType="java.lang.String">
-        select count(*) from
-        f_account
+    <!--统计记账总信息 记账总天数/记账总条数-->
+    <select id="totalAccountDay" resultMap="BaseResultMap33" parameterType="java.lang.String">
+        select count(distinct record_day) as totalAccountDay,
+        count(*) as totalAccountNum
+        from f_account
         <where>
             1=1
             <if test="userId != null">

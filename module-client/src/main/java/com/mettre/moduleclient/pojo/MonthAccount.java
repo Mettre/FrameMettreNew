@@ -17,6 +17,13 @@ public class MonthAccount extends ResultList {
         super(data);
     }
 
+
+    public MonthAccount(List data, MonthAccount monthAccount) {
+        super(data);
+        this.expenditure = monthAccount.getExpenditure();
+        this.income = monthAccount.getIncome();
+    }
+
     public MonthAccount(List data, BigDecimal expenditure, BigDecimal income) {
         super(data);
         this.expenditure = expenditure == (null) ? new BigDecimal(0.00) : expenditure;
