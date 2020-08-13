@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Aspect
-@Configuration//定义一个切面
+@Configuration//定义一个切面   生产环境临时修改
 public class LogRecordAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(LogRecordAspect.class);
