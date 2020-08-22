@@ -122,5 +122,9 @@ docker下nginx部署vue项目   vue项目下命令npm run build生成dist文件 
       docker下需要挂载文件 -v /宿主机目录 :/docker镜像目录
       http://www.macrozheng.com/#/deploy/mall_deploy_web
 
+day3......
+
+day4......
+
 
   
