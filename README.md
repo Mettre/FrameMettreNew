@@ -118,8 +118,9 @@ linux 常用命令
 
 订单号的生成：使用redis来生成，生成规则:8位日期+2位平台号码+2位支付方式+6位以上自增id；
 
-dev：开发分支开发开发.....
+docker下nginx部署vue项目   vue项目下命令npm run build生成dist文件 -- 拖入linux服务器 --- 放到nginx目录下的html文件夹下，一般在/usr/share/nginx/html    配置文件一般在/etc/nginx/conf.d/default.conf
+      docker下需要挂载文件 -v /宿主机目录 :/docker镜像目录
+      http://www.macrozheng.com/#/deploy/mall_deploy_web
 
-day2.......
 
-
+  
