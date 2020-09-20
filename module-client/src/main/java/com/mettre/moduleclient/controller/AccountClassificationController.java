@@ -49,7 +49,7 @@ public class AccountClassificationController {
     /**
      * 访问首页
      */
-    @ApiOperation(value = "访问首页测试联通")
+    @ApiOperation(value = "访问首页测试联通继续开发")
     @GetMapping("/index")
     public String index() {
         return "hello SpringBoot！";
