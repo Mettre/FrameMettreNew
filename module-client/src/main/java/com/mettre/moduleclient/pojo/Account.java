@@ -15,7 +15,7 @@ import java.util.Date;
 @Data
 public class Account {
 
-    Logger logger = LoggerFactory.getLogger(Account.class);
+//    Logger logger = LoggerFactory.getLogger(Account.class);
 
     private Integer id;
 
@@ -29,13 +29,13 @@ public class Account {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate recordDay;
+    private Date recordDay;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime crateTime;
+    private Date crateTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime modifyTime;
+    private Date modifyTime;
 
     private String userId;
 
@@ -55,10 +55,7 @@ public class Account {
         this.classification = accountPojo.getClassification();
         this.type = accountPojo.getType();
         this.recordDay = accountPojo.getRecordDay();
-        logger.error("解金澎recordDay  " + recordDay);
-        this.crateTime = LocalDateTime.now();
-        logger.error("解金澎crateTime  " + crateTime);
-        logger.error("解金澎crateTime2222222  " + LocalDateTime.now());
+        this.crateTime = new Date();
     }
 
     /**
@@ -74,6 +71,6 @@ public class Account {
         this.classification = accountPojo.getClassification();
         this.type = accountPojo.getType();
         this.recordDay = accountPojo.getRecordDay();
-        this.modifyTime = LocalDateTime.now();
+        this.modifyTime = new Date();
     }
 }

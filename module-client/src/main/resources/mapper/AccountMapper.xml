@@ -8,8 +8,8 @@
         <result column="classification" property="classification" jdbcType="VARCHAR"/>
         <result column="type" property="type" jdbcType="INTEGER"/>
         <result column="record_day" property="recordDay" jdbcType="DATE"/>
-        <result column="crate_time" property="crateTime" jdbcType="TIMESTAMP"/>
-        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+        <result column="crate_time" property="crateTime" jdbcType="DATE"/>
+        <result column="modify_time" property="modifyTime" jdbcType="DATE"/>
     </resultMap>
 
     <resultMap id="BaseResultMap2" type="com.mettre.moduleclient.pojo.AccountList">
@@ -194,7 +194,7 @@
                 and title like concat('%',#{accountListPojo.title,jdbcType=VARCHAR},'%')
             </if>
         </where>
-
+        order by record_day ,crate_time desc
     </select>
 
     <!--记账列表-->
@@ -204,7 +204,7 @@
         from f_account
         <where>
             1=1
-            <if test="accountListPojo.classification != null">
+            <if test="accountListPojo.classification != null and accountListPojo.classification!=''">
                 and classification = #{accountListPojo.classification,jdbcType=VARCHAR}
             </if>
             <if test="accountListPojo.type != null">
@@ -221,6 +221,7 @@
                 and title like concat('%',#{accountListPojo.title,jdbcType=VARCHAR},'%')
             </if>
         </where>
+        order by record_day desc,crate_time desc
     </select>
 
     <!--月份账单列表-->

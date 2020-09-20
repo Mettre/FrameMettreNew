@@ -23,6 +23,8 @@ public class AccountPojo {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate recordDay;
+    private Date recordDay;
+
+    private String userId;
 
 }

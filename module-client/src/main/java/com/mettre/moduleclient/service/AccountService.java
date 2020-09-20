@@ -51,6 +51,15 @@ public class AccountService {
         return ReturnType.ReturnType(type, "添加失败");
     }
 
+    public int userInsert(AccountPojo accountPojo) {
+        AccountClassification accountClassification = accountClassificationService.selectByPrimaryKey(accountPojo.getClassification());
+        if (accountClassification == null) {
+            throw new CustomerException("分类错误");
+        }
+        int type = accountMapper.insert(new Account(accountPojo, accountPojo.getUserId()));
+        return ReturnType.ReturnType(type, "添加失败");
+    }
+
     /**
      * 统计月份记账金额情况
      *

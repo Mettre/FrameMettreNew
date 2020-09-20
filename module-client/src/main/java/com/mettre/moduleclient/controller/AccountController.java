@@ -18,6 +18,7 @@ import com.mettre.modulecommon.jwt.SecurityContextStore;
 import com.mettre.modulecommon.base.ResultBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/account")
+@RequiredArgsConstructor
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Api(description = "记账")
 public class AccountController {
 
@@ -41,6 +44,14 @@ public class AccountController {
         return Result.ok();
     }
 
+    @ApiOperation(value = "添加记账")
+    @PostMapping(value = "/user/add")
+    public Result<ResultBean> addUserAccount(@Valid @RequestBody AccountPojo accountPojo) {
+
+        accountService.userInsert(accountPojo);
+        return Result.ok();
+    }
+
     @ApiOperation(value = "删除记账")
     @GetMapping(value = "/loginEd/delete/{id}")
     public Result<ResultBean> deleteByPrimaryKey(@PathVariable Integer id) {
@@ -49,7 +60,7 @@ public class AccountController {
     }
 
     @ApiOperation(value = "记账列表-分页")
-    @PostMapping(value = "/loginEd/getAccountListPage")
+    @PostMapping(value = "/loginE/getAccountListPage")
     public Result<Object> searchAccountListPage(@Valid @RequestBody AccountListPojoPage accountListPojo) {
         String userId = SecurityContextStore.getContext().getUserId();
         Page<Account> page = new Page<>(accountListPojo.getPage(), accountListPojo.getSize());
